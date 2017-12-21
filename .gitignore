@@ -2,3 +2,4 @@ public/
 .deploy_git/
 .sass-cache/
 node_modules/
+db.json
