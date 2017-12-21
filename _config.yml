@@ -80,7 +80,7 @@ deploy:
   type: git
   repo: https://github.com/SeptemberMaples/SeptemberMaples.github.io.git
   branch: 'master' # 网站静态文件部署到master分支；  源码放到 gh-pages 分支
-  message: 'reconsitution by Hexo'
+  # message: 'reconsitution by Hexo'
 
 #添加搜索  https://www.algolia.com/
 algolia:
