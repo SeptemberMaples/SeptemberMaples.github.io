@@ -1,3 +1,4 @@
-public
-.deploy_git
-.sass-cache
+public/
+.deploy_git/
+.sass-cache/
+node_modules/
