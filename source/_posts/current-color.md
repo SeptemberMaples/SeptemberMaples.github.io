@@ -38,6 +38,5 @@ currentColor是很多CSS颜色属性的初始值，如 border-color、outline-co
 这是一个使用currentColor的非常棒的示例，特别是动画效果的部分。
 
 ### 应用场景：制作UI组件
-{% asset_img currentColor-components-small.gif This is an example image %}
 {% img /images/currentColor-components-small.gif [demo [alt text]] %}
 

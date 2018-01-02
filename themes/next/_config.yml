@@ -16,7 +16,7 @@ override: false
 # And if you want to place your icons in `hexo-site/source/`, you must remove `/images` prefix from pathes.
 favicon:
   small: /images/favicon-16x16.png
-  medium: /images/favicon-32x32.png
+  medium: /images/favicon-32x32.ico
   apple_touch_icon: /images/apple-touch-icon.png
   safari_pinned_tab: /images/logo.svg
   #android_manifest: /images/manifest.json
