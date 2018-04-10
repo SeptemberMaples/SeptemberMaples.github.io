@@ -12,6 +12,7 @@ categories:
 如果你用LESS或SASS等预处理器写css，那么对样式中的变量肯定很熟悉。 今天看到一个**CSS原生变量** ——currentColor。
 
 currentColor的值是由当前元素使用的color属性的计算值决定的。也就是说，currentColor的值和当前color属性的值是一样的，这也是currentColor这个名字的由来。
+<!-- more -->
 
 比如：想把所有的水平分割线(hr)自动与文本的颜色保持一致，可以这样写
 
@@ -22,7 +23,6 @@ currentColor的值是由当前元素使用的color属性的计算值决定的。
 	}
 {% endcodeblock %}
 
-<!-- more -->
 
 如果没有设置默认值，浏览器会默认黑色。  如果设置了父元素的color值，currentColor的值则继承其父元素的值。 如下所示：
 <p data-height="265" data-theme-id="dark" data-slug-hash="ZWPgbm" data-default-tab="css,result" data-user="yangyong" data-embed-version="2" class="codepen">See the Pen <a href="http://codepen.io/yangyong/pen/ZWPgbm/">currentColor demo</a> by yangyong (<a href="http://codepen.io/yangyong">@yangyong</a>) on <a href="http://codepen.io">CodePen</a>.</p>

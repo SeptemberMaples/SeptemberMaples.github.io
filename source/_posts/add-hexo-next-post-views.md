@@ -18,7 +18,7 @@ leancloud_visitors:
   app_id: <app_id>
   app_key: <app_key>
 ```
-
+<!-- more -->
 可以看到，这是基于leancloud,需要先[注册leancloud帐号](https://leancloud.cn)获取app_id和app_key。
 
 ## 设置leancloud帐号
