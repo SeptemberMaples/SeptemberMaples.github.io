@@ -4,7 +4,7 @@ date: 2019-03-23 20:02:24
 categories: 
 - 前端
 tags: 
-- Ngix
+- nginx
 - 笔记
 ---
 
