@@ -18,3 +18,11 @@ branches:
   only:
   - gh-pages
   # - /.*/
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: 564770febc69388d4ff2810a0554cf3baf18b8e3  # Set in the settings page of your repository, as a secure variable
+  keep_history: true
+  on:
+    branch: gh-pages
