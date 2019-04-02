@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - "7"
+
+before_script:
+
+before_install:
+
+install:
+  - npm install hexo-cli -g
+
+script:
+  # 生成静态文件并部署网站
+  hexo -g d
