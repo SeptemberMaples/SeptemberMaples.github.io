@@ -3,8 +3,10 @@ node_js:
   - "7"
 
 before_script:
+  - git config --global user.name "Simon"
+  - git config --global user.email "915477248@qq.com"
 
-before_install:
+# before_install:
 
 install:
   - npm install hexo-cli -g
@@ -18,6 +20,9 @@ branches:
   only:
   - gh-pages
   # - /.*/
+
+cache:
+  - yarn
 
 deploy:
   provider: pages
