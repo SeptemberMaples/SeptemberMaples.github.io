@@ -8,6 +8,7 @@ before_install:
 
 install:
   - npm install hexo-cli -g
+  - npm install
 
 script:
   # 生成静态文件并部署网站
