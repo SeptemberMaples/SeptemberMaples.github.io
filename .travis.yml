@@ -12,7 +12,7 @@ install:
 
 script:
   # 生成静态文件并部署网站
-  hexo -g d
+  - hexo d -g
 
 branches:
   only:
