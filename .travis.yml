@@ -14,7 +14,8 @@ install:
 
 script:
   # 生成静态文件并部署网站
-  - hexo d -g
+  - hexo d
+  - git push origin master
 
 # branches:
 #   only:
