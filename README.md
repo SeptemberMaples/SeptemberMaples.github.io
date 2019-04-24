@@ -37,7 +37,7 @@ hexo publish [layout] <filename>
 
 ### 显示草稿
 ```bash
-hexo --draft
+hexo server --draft
 ```
 显示 `source/_drafts` 文件夹中的草稿文章
 
@@ -46,3 +46,7 @@ hexo --draft
 hexo server
 ```
 启动服务器。默认情况下，访问网址为： http://localhost:4000/
+
+
+---
+[Markdonw常用基本语法](https://www.jianshu.com/p/191d1e21f7ed)
