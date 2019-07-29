@@ -1,3 +1,8 @@
+全局安装 hexo-cli
+```
+npm install -g hexo-cli
+```
+
 ### [hexo 常用指令](https://hexo.io/zh-cn/docs/commands)
 
 #### init
