@@ -2,7 +2,7 @@
 title: Flutter学习：项目结构及配置文件
 date: 2019-08-09 11:26:48
 tags:
-  - Flutter
+  - flutter
 categories:
   - Flutter
 ---
