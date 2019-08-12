@@ -240,7 +240,18 @@ class _MyMainPageState extends State<MyMainApp> {
 {% img /images/2019-08-09/flutter_study_03.png %}
 
 ---
-[相关代码](https://github.com/SeptemberMaples/study-section/tree/flutter_study/flutter_study/lib/flutter_01)
+### 补充：
+<font color='red'>**上面的代码可以看出，`StatefulWidget` 和 `State` 是独立的对象`, 这是为什么？**</font>
+{% img /images/2019-08-09/flutter_study_04.png %}
+
+在 Flutter 中，这两种类型的对象具有**不同的生命周期。Widget 是临时对象，用于构造应用当前状态的展示。而 State 对象在调用 build() 之间是持久的，以此来存储信息**。
+
+在复杂的应用中，widget 层次不同的部分可能负责不同的关注点；例如，一个 widget 可能呈现复杂的用户界面，来收集像日期或位置这样特定的信息，而另一个 widget 可能使用该信息来改变整体的展现。（拆分的更细化）
+
+widget 通过回调得到状态改变的通知，同时当前状态通知给其他 widget 用于显示。重定向这一流程的共同父级是 State。
+
+---
+[<font color='blue'>相关代码</font>](https://github.com/SeptemberMaples/study-section/tree/flutter_study/flutter_study/lib/flutter_01)
 
 
 ___
