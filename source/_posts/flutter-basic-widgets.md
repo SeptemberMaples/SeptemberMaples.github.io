@@ -257,6 +257,7 @@ Image 支持 5 种方式加载图片:
 
 其中这几种其实都是通过 ImageProvider 来从不同源加载图片的，封装类有：NetworkImage、FileImage、AssetImage、ExactAssetImage、MemoryImage。我们既可以用这几个构造方法加载图片，也可以使用这几个封装类来加载。
 
+#### Image Widget方法及属性
 5个构造方法的使用及属性：
 ```dart
 //通过ImageProvider来加载图片
@@ -559,8 +560,159 @@ enum BoxFit {
 ```
 
 {% img /images/2019-08-13/flutter_study_03.png %}
+
+### Button Widget
+
+> Button Widget 在 Flutter 里是用来负责按钮功能的组件，功能类似于 HTML 的一些 button 标签等等，属于基础组件。
+
+在 Flutter 中 Button 有很多封装好的 Widget 类：FlatButton（扁平化）、RaisedButton（有按下状态）、OutlineButton（有边框）、MaterialButton（Material风格）、RawMaterialButton（没有应用 style 的 Material 风格按钮）、FloatingActionButton（悬浮按钮）、BackButton（返回按钮）、IconButton（Icon 图标）、CloseButton（关闭按钮）、`ButtonBar`（可以排列放置按钮元素的）等。
+
+#### Button Widget方法及属性
+以 FlatButton 为例，其常用构造方法和属性为：
+```dart
+const FlatButton({
+  Key key,
+  // 点击事件
+  @required VoidCallback onPressed,
+  // 高亮改变，按下和抬起时都会调用的方法
+  ValueChanged<bool> onHighlightChanged,
+  // 定义按钮的基色，以及按钮的最小尺寸，内部填充和形状的默认值
+  ButtonTextTheme textTheme,
+  // 按钮文字的颜色
+  Color textColor,
+  // 按钮禁用时的文字颜色
+  Color disabledTextColor,
+  // 按钮背景颜色
+  Color color,
+  // 按钮禁用时的背景颜色
+  Color disabledColor,
+  // 按钮按下时的背景颜色
+  Color highlightColor,
+  // 点击时，水波动画中水波的颜色，不要水波纹效果设置透明颜色即可
+  Color splashColor,
+  // 按钮主题，默认是浅色主题，分为深色和浅色 
+  Brightness colorBrightness,
+  // 按钮的填充间距
+  EdgeInsetsGeometry padding,
+  // 外形
+  ShapeBorder shape,
+  Clip clipBehavior = Clip.none,
+  MaterialTapTargetSize materialTapTargetSize,
+  // 按钮的内容，里面可以放子元素
+  @required Widget child,
+})
+```
+`onPressed`和`child`是必须的。 如果没有点击事件，onPressed为 `null`
+```dart
+// 禁用状态
+FlatButton(
+  child: Text(
+    '禁用的Flat按钮', 
+  ),
+  disabledColor: Colors.grey[300],
+  disabledTextColor: Colors.grey,
+  onPressed: null,
+)
+```
+
+#### Button Widget 实例
+
+```dart
+// 部分代码
+body: Container(
+  padding: EdgeInsets.all(20),
+  child: Column(
+    children: <Widget>[
+    //  返回按钮
+      BackButton(
+        color: Colors.blue,
+      ),
+
+    //  关闭按钮
+    CloseButton(),
+
+    ///  flatButton
+    ButtonBar(
+      children: <Widget>[
+        // 正常状态
+        FlatButton(
+          child: Text(
+            '一个Flat按钮', 
+          ),
+          // 按钮背景色
+          color: Colors.green,
+          // 按钮文字的颜色
+          textColor: Colors.white,
+          // textTheme: ButtonTextTheme.primary,
+          onPressed: () => {},
+        ),
+
+        // 禁用状态
+        FlatButton(
+          child: Text(
+            '禁用的Flat按钮', 
+          ),
+          disabledColor: Colors.grey[300],
+          disabledTextColor: Colors.grey,
+          onPressed: null,
+        ),
+      ],
+    ),
+
+    /// MaterialButton
+    MaterialButton(
+      child: Text('MaterialButton'),
+      onPressed: () => {},
+    ),
+
+    /// FloatingActionButton
+    FloatingActionButton(
+      child: Text('Float'),
+      onPressed: () => {},
+    ),
+
+    /// RaisedButton
+    RaisedButton(
+      child: Text('RaisedButton'),
+      onPressed: () => {},
+    ),
+
+    // OutlineButton
+    OutlineButton(
+      child: Text('OutlineButton'),
+      onPressed: () => {},
+      textColor: Colors.blue,
+      borderSide: BorderSide(
+        color: Colors.blue,
+      ),
+    ),
+
+    /// OutlineButton + icon
+    OutlineButton.icon(
+      icon: Icon(Icons.add_to_photos, size: 18),
+      label: Text('带icon的按钮'),
+      onPressed: () => {},
+    ),
+
+    /// IconButton
+    IconButton(
+      icon: Icon(Icons.add),
+      onPressed: () => {},
+      color: Colors.green, // icon的颜色
+      highlightColor: Colors.blue,  // press时，iconbutton的背景色
+      tooltip: 'add iconbutton', // press时的提示
+    ),
+    Text('IconButton'),
+
+    
+    ],
+  ),
+),
+```
+{% img /images/2019-08-13/flutter_study_04.png %}
+
 ---
-[相关代码]()
+[相关代码](https://github.com/SeptemberMaples/study-section/tree/flutter_study/flutter_study/lib/flutter_03)
 
 
 ---
