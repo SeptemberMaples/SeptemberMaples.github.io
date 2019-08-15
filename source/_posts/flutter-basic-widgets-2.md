@@ -14,6 +14,8 @@ categories:
 
 {% img /images/2019-08-14/flutter_study_01.png '来源：flutter.dev'%}
 
+<!-- more -->
+
 #### AppBar Widget 构造方法
 ```dart
 AppBar({
