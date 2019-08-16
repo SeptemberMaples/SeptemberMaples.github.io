@@ -14,6 +14,8 @@ categories:
 
 TextField 属于 `StatefulWidget`，功能是提示信息、输入框接收的数据类型、输入框监听事件等。
 
+<!-- more -->
+
 #### TextField 构造方法和属性
 ```dart
 const TextField({
@@ -343,6 +345,8 @@ _formState.validate();
 
 // 调用这几个方法后，会调用Form子元素FormField的对应的方法回调，这样就达到了控制和管理操作
 ```
+
+#### Form Widget 实例
 {% img /images/2019-08-16/flutter_study_03.png 'Form Widget Sample'%}
 
 
