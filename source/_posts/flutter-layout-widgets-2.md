@@ -212,6 +212,8 @@ class FlowWidgetDelegate extends FlowDelegate{
 ```
 {% img /images/2019-08-20/flutter_study_04.png %}
 
+[Flow Widget 详情文档](https://api.flutter.dev/flutter/widgets/Flow-class.html)
+
 
 ---
 
