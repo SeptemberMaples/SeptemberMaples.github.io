@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="flutter,widget," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="AppBar Widget AppBar 是页面的顶部标题栏，里面可以定制各种按钮、菜单等，一般配合 Scaffold 使用。AppBar 是一个 StatefulWidget。">
+<meta name="keywords" content="flutter,widget">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flutter学习-04：基础widgets - AppBar、AlertDialog、Icon">
+<meta property="og:url" content="http://yangyong.xyz/2019/08/14/flutter-basic-widgets-2/index.html">
+<meta property="og:site_name" content="九月枫林">
+<meta property="og:description" content="AppBar Widget AppBar 是页面的顶部标题栏，里面可以定制各种按钮、菜单等，一般配合 Scaffold 使用。AppBar 是一个 StatefulWidget。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yangyong.xyz/images/2019-08-14/flutter_study_01.png">
+<meta property="og:image" content="http://yangyong.xyz/images/2019-08-14/flutter_study_02.png">
+<meta property="og:image" content="http://yangyong.xyz/images/2019-08-14/flutter_study_03.png">
+<meta property="og:image" content="http://yangyong.xyz/images/2019-08-14/flutter_study_04.png">
+<meta property="og:updated_time" content="2019-08-15T15:18:59.602Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Flutter学习-04：基础widgets - AppBar、AlertDialog、Icon">
+<meta name="twitter:description" content="AppBar Widget AppBar 是页面的顶部标题栏，里面可以定制各种按钮、菜单等，一般配合 Scaffold 使用。AppBar 是一个 StatefulWidget。">
+<meta name="twitter:image" content="http://yangyong.xyz/images/2019-08-14/flutter_study_01.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'S8WI7CQ2RG',
+      apiKey: '1e5d4e0537d3136202da11c5c5b766b9',
+      indexName: 'blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键词","hits_empty":"没有找到与 ${query} 相关的内容","hits_stats":"${hits}条相关记录，共耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yangyong.xyz/2019/08/14/flutter-basic-widgets-2/"/>
+
+
+
+
+
+  <title>Flutter学习-04：基础widgets - AppBar、AlertDialog、Icon | 九月枫林</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九月枫林</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Simon Young</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yangyong.xyz/2019/08/14/flutter-basic-widgets-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九月枫林">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九月枫林">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Flutter学习-04：基础widgets - AppBar、AlertDialog、Icon</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-14T16:21:36+08:00">
+                2019-08-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Flutter/" itemprop="url" rel="index">
+                    <span itemprop="name">Flutter</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/08/14/flutter-basic-widgets-2/" class="leancloud_visitors" data-flag-title="Flutter学习-04：基础widgets - AppBar、AlertDialog、Icon">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="AppBar-Widget"><a href="#AppBar-Widget" class="headerlink" title="AppBar Widget"></a>AppBar Widget</h3><blockquote>
+<p>AppBar 是页面的顶部标题栏，里面可以定制各种按钮、菜单等，一般配合 <code>Scaffold</code> 使用。AppBar 是一个 StatefulWidget。</p>
+</blockquote>
+<img src="/images/2019-08-14/flutter_study_01.png" title="来源：flutter.dev">
+<a id="more"></a>
+<h4 id="AppBar-Widget-构造方法"><a href="#AppBar-Widget-构造方法" class="headerlink" title="AppBar Widget 构造方法"></a>AppBar Widget 构造方法</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">AppBar(&#123;</span><br><span class="line">  Key key,</span><br><span class="line">  <span class="comment">// 标题栏最左侧图标，首页一般默认显示logo，其它页面默认显示返回按钮，可以自定义</span></span><br><span class="line">  Widget leading,</span><br><span class="line">  <span class="comment">// 是否提供控件占位</span></span><br><span class="line">  <span class="built_in">bool</span> automaticallyImplyLeading: <span class="keyword">true</span>,</span><br><span class="line">  <span class="comment">// 标题内容</span></span><br><span class="line">  Widget title,</span><br><span class="line">  <span class="comment">// 标题栏上右侧的菜单，可以用IconButton显示，也可以用PopupMenuButton显示为三个点</span></span><br><span class="line">  <span class="built_in">List</span>&lt;Widget&gt; actions,</span><br><span class="line">  <span class="comment">// AppBar下方的控件，高度和AppBar高度一样，通常在SliverAppBar中使用</span></span><br><span class="line">  Widget flexibleSpace,</span><br><span class="line">  <span class="comment">// 标题栏下方的空间，一般放TabBar</span></span><br><span class="line">  PreferredSizeWidget bottom,</span><br><span class="line">  <span class="comment">// 控制标题栏阴影大小</span></span><br><span class="line">  <span class="built_in">double</span> elevation,</span><br><span class="line">  ShapeBorder shape,</span><br><span class="line">  <span class="comment">// 标题栏背景色</span></span><br><span class="line">  Color backgroundColor,</span><br><span class="line">  <span class="comment">// 亮度，有白色和黑色两种主题</span></span><br><span class="line">  Brightness brightness,</span><br><span class="line">  <span class="comment">// AppBar上图标的颜色、透明度、和尺寸信息</span></span><br><span class="line">  IconThemeData iconTheme,</span><br><span class="line">  IconThemeData actionsIconTheme,</span><br><span class="line">  <span class="comment">// AppBar上的文字样式</span></span><br><span class="line">  TextTheme textTheme,</span><br><span class="line">  <span class="comment">// 是否进入到状态栏</span></span><br><span class="line">  <span class="built_in">bool</span> primary: <span class="keyword">true</span>,</span><br><span class="line">  <span class="comment">// 标题是否居中</span></span><br><span class="line">  <span class="built_in">bool</span> centerTitle,</span><br><span class="line">  <span class="comment">// 标题间距，如果希望title占用所有可用空间，请将此值设置为0.0</span></span><br><span class="line">  <span class="built_in">double</span> titleSpacing: NavigationToolbar.kMiddleSpacing,</span><br><span class="line">  <span class="comment">// 透明度</span></span><br><span class="line">  <span class="built_in">double</span> toolbarOpacity: <span class="number">1.0</span>,</span><br><span class="line">  <span class="built_in">double</span> bottomOpacity: <span class="number">1.0</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="AppBar-Widget-实例"><a href="#AppBar-Widget-实例" class="headerlink" title="AppBar Widget 实例"></a>AppBar Widget 实例</h4><p>一个简单的用法：<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 部分代码</span></span><br><span class="line"><span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        <span class="comment">// leading</span></span><br><span class="line">        leading: IconButton(</span><br><span class="line">          icon: Icon(Icons.menu),</span><br><span class="line">          onPressed: () =&gt; &#123;&#125;,</span><br><span class="line">        ),</span><br><span class="line">        <span class="comment">// title</span></span><br><span class="line">        title: Text(<span class="string">'AppBar Widget 学习'</span>),</span><br><span class="line">        <span class="comment">// actions</span></span><br><span class="line">        actions: &lt;Widget&gt;[</span><br><span class="line">          IconButton(</span><br><span class="line">            icon: Icon(Icons.access_time),</span><br><span class="line">            padding: EdgeInsets.all(<span class="number">10</span>),</span><br><span class="line">            onPressed: () =&gt; &#123;&#125;,</span><br><span class="line">          ),</span><br><span class="line">          IconButton(</span><br><span class="line">            icon: Icon(Icons.card_giftcard),</span><br><span class="line">            padding: EdgeInsets.all(<span class="number">10</span>),</span><br><span class="line">            onPressed: () =&gt; &#123;&#125;,</span><br><span class="line">          ),</span><br><span class="line">        ],</span><br><span class="line">        backgroundColor: Colors.redAccent,</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>效果为：<br><img src="/images/2019-08-14/flutter_study_02.png"></p>
+<p>加上 AppBar 的 bottom 部分，实现一个相对复杂的效果。<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        leading: IconButton(</span><br><span class="line">          icon: Icon(Icons.menu),</span><br><span class="line">          onPressed: () &#123;&#125;,</span><br><span class="line">        ),</span><br><span class="line">        title: Text(<span class="string">'AppBar Widget'</span>),</span><br><span class="line">        actions: &lt;Widget&gt;[</span><br><span class="line">          IconButton(icon: Icon(Icons.share), onPressed: () &#123;&#125;),</span><br><span class="line">          <span class="comment">/// 三个点，表示打开更多</span></span><br><span class="line">          PopupMenuButton(</span><br><span class="line">            itemBuilder: (BuildContext context) =&gt; &lt;PopupMenuItem&lt;<span class="built_in">String</span>&gt;&gt;[</span><br><span class="line">              PopupMenuItem&lt;<span class="built_in">String</span>&gt;(</span><br><span class="line">                child: Text(<span class="string">'个人中心'</span>),</span><br><span class="line">                value: <span class="string">'profile'</span>,</span><br><span class="line">              ),</span><br><span class="line">              PopupMenuItem&lt;<span class="built_in">String</span>&gt;(</span><br><span class="line">                child: Text(<span class="string">'更多列表'</span>),</span><br><span class="line">                value: <span class="string">'list'</span>,</span><br><span class="line">              ),</span><br><span class="line">            ],</span><br><span class="line">          ),</span><br><span class="line">        ],</span><br><span class="line">        <span class="comment">/// bottom 标题栏下方的空间，一般放TabBar</span></span><br><span class="line">        bottom: TabBar(</span><br><span class="line">          controller: _tabController,</span><br><span class="line">          isScrollable: <span class="keyword">true</span>,</span><br><span class="line">          indicatorColor: Colors.white,</span><br><span class="line">          tabs: &lt;Widget&gt;[</span><br><span class="line">            Tab(</span><br><span class="line">              text: <span class="string">'tab1'</span>,</span><br><span class="line">              icon: Icon(Icons.add),</span><br><span class="line">            ),</span><br><span class="line">            Tab(</span><br><span class="line">              text: <span class="string">'tab2'</span>,</span><br><span class="line">              icon: Icon(Icons.add),</span><br><span class="line">            ),</span><br><span class="line">            Tab(</span><br><span class="line">              text: <span class="string">'tab3'</span>,</span><br><span class="line">              icon: Icon(Icons.add),</span><br><span class="line">            ),</span><br><span class="line">            Tab(</span><br><span class="line">              text: <span class="string">'tab4'</span>,</span><br><span class="line">              icon: Icon(Icons.add),</span><br><span class="line">            ),</span><br><span class="line">            Tab(</span><br><span class="line">              text: <span class="string">'tab5'</span>,</span><br><span class="line">              icon: Icon(Icons.add),</span><br><span class="line">            ),</span><br><span class="line">          ],</span><br><span class="line">        ),</span><br><span class="line"></span><br><span class="line">        backgroundColor: Colors.redAccent,</span><br><span class="line">      ),</span><br><span class="line">      body: TabBarView(</span><br><span class="line">        controller: _tabController,</span><br><span class="line">        children: &lt;Widget&gt;[</span><br><span class="line">          Center(</span><br><span class="line">            child: Text(<span class="string">'data1'</span>),</span><br><span class="line">          ),</span><br><span class="line">          Center(</span><br><span class="line">            child: Text(<span class="string">'data2'</span>),</span><br><span class="line">          ),</span><br><span class="line">          Center(</span><br><span class="line">            child: Text(<span class="string">'data3'</span>),</span><br><span class="line">          ),</span><br><span class="line">          Center(</span><br><span class="line">            child: Text(<span class="string">'data4'</span>),</span><br><span class="line">          ),</span><br><span class="line">          Center(</span><br><span class="line">            child: Text(<span class="string">'data5'</span>),</span><br><span class="line">          ),</span><br><span class="line">        ],</span><br><span class="line">      ),</span><br><span class="line">    );</span><br></pre></td></tr></table></figure></p>
+<p>效果为：<br><img src="/images/2019-08-14/flutter_study_03.png"></p>
+<hr>
+<h3 id="Icon-Widget"><a href="#Icon-Widget" class="headerlink" title="Icon Widget"></a>Icon Widget</h3><blockquote>
+<p>Icon Widget 主要是用来显示图标相关的操作。Flutter Icon 也可以使用 unicode、矢量图标、iconfont 里的图标、Flutter 自带的 Material 图标（需要在 pubspec.yaml 中配置开启）。</p>
+</blockquote>
+<p>Material 风格图标使用通过 <code>Icons.</code> 来调用，如 <code>Icons.add</code>，这样就可以使用加号图标了。Flutter 的 Icon 也封装了<code>ImageIcon</code>、<code>IconButton</code> 来提供使用。</p>
+<p>Material Design 所有图标可以在官网查看：<a href="https://material.io/tools/icons/" target="_blank" rel="noopener">https://material.io/tools/icons/</a></p>
+<p>Icon 是属于 StatelessWidget。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 配置  pubspec.yaml 中这句就可以使用Material风格内置的Icons了</span></span><br><span class="line">flutter:</span><br><span class="line">  uses-material-design: <span class="keyword">true</span></span><br></pre></td></tr></table></figure>
+<h4 id="Icon-Widget-构造方法和属性"><a href="#Icon-Widget-构造方法和属性" class="headerlink" title="Icon Widget 构造方法和属性"></a>Icon Widget 构造方法和属性</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Icon(</span><br><span class="line">  IconData icon, </span><br><span class="line">  &#123;</span><br><span class="line">    Key key,</span><br><span class="line">    <span class="comment">// 图标大小，默认为24px</span></span><br><span class="line">    <span class="built_in">double</span> size,</span><br><span class="line">    <span class="comment">// 图标颜色</span></span><br><span class="line">    Color color,</span><br><span class="line">    <span class="built_in">String</span> semanticLabel,</span><br><span class="line">    <span class="comment">// 渲染图标的方向，前提需要IconData.matchTextDirection字段设置为true</span></span><br><span class="line">    TextDirection textDirection</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h4 id="Icon-Widget-实例"><a href="#Icon-Widget-实例" class="headerlink" title="Icon Widget 实例"></a>Icon Widget 实例</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">Center(</span><br><span class="line">  child: Column(</span><br><span class="line">    children: &lt;Widget&gt;[</span><br><span class="line">      <span class="comment">/// flutter 自带的icon</span></span><br><span class="line">      IconButton(</span><br><span class="line">        icon: Icon(Icons.add_circle),</span><br><span class="line">        iconSize: <span class="number">30</span>,</span><br><span class="line">        <span class="comment">// icon颜色</span></span><br><span class="line">        color: Colors.greenAccent,</span><br><span class="line">        <span class="comment">// 按下时，button 水波纹效果</span></span><br><span class="line">        splashColor: Colors.indigoAccent,</span><br><span class="line">        onPressed: ()&#123;&#125;,</span><br><span class="line">      ),</span><br><span class="line">      </span><br><span class="line">      <span class="comment">/// Icon</span></span><br><span class="line">      Icon(</span><br><span class="line">        Icons.add_shopping_cart,</span><br><span class="line">        size: <span class="number">30.0</span>,</span><br><span class="line">        color: Colors.blueAccent,</span><br><span class="line">      ),</span><br><span class="line"></span><br><span class="line">      <span class="comment">/// ImageIcon, 使用自已的png图片，有透明度。 需要在 pubspec.yaml 中配置图片文件</span></span><br><span class="line">      ImageIcon(</span><br><span class="line">        AssetImage(<span class="string">'lib/images/icon_wx.png'</span>),</span><br><span class="line">        size: <span class="number">50.0</span>,</span><br><span class="line">        color: Colors.green,</span><br><span class="line">      ),</span><br><span class="line">    ],</span><br><span class="line">  ),</span><br><span class="line">),</span><br></pre></td></tr></table></figure>
+<p>效果为：<br><img src="/images/2019-08-14/flutter_study_04.png"></p>
+<hr>
+<h3 id="AlertDialog-Widget"><a href="#AlertDialog-Widget" class="headerlink" title="AlertDialog Widget"></a>AlertDialog Widget</h3><blockquote>
+<p>AlertDialog Widget 主要是实现对话框效果。Flutter 中 dialog 一般分为：AlertDialog（用于警告提示对话框）、SimpleDialog（有列表选项的对话框）、CupertinoAlertDialog（iOS 风格的 alert dialog）、CupertinoDialog（iOS 风格的对话框）。</p>
+</blockquote>
+<p>AlertDialog Widget 是一个 <code>StatelessWidget</code>。继承关系如下：</p>
+<p><strong>Object &gt; Diagnosticable &gt; DiagnosticableTree &gt; Widget &gt; StatelessWidget &gt; AlertDialog</strong></p>
+<p>Flutter 自带这以下几个弹出对话框方法。</p>
+<ul>
+<li>showDialog：弹出 Material 风格对话框</li>
+<li>showCupertinoDialog：弹出 iOS 样式对话框</li>
+<li>showGeneralDialog：弹出自定义的对话框，默认状态下弹出的窗口点击空白处不消失</li>
+<li>showAboutDialog：弹出关于页面适用的对话框</li>
+</ul>
+<h4 id="AlertDialog-构造方法和属性"><a href="#AlertDialog-构造方法和属性" class="headerlink" title="AlertDialog 构造方法和属性"></a>AlertDialog 构造方法和属性</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> AlertDialog(&#123;</span><br><span class="line">  Key key,</span><br><span class="line">  Widget title,</span><br><span class="line">  EdgeInsetsGeometry titlePadding,</span><br><span class="line">  TextStyle titleTextStyle,</span><br><span class="line">  Widget content,</span><br><span class="line">  EdgeInsetsGeometry contentPadding: <span class="keyword">const</span> EdgeInsets.fromLTRB(<span class="number">24.0</span>, <span class="number">20.0</span>, <span class="number">24.0</span>, <span class="number">24.0</span>),</span><br><span class="line">  TextStyle contentTextStyle,</span><br><span class="line">  <span class="comment">// 操作按钮</span></span><br><span class="line">  <span class="built_in">List</span>&lt;Widget&gt; actions,</span><br><span class="line">  Color backgroundColor,</span><br><span class="line">  <span class="comment">// 设置阴影大小</span></span><br><span class="line">  <span class="built_in">double</span> elevation,</span><br><span class="line">  <span class="built_in">String</span> semanticLabel,</span><br><span class="line">  ShapeBorder shape</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="AlertDialog-实例"><a href="#AlertDialog-实例" class="headerlink" title="AlertDialog 实例"></a>AlertDialog 实例</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// AlertDialog 标题、内容、操作按钮</span></span><br><span class="line">Future&lt;<span class="keyword">void</span>&gt; dialog1(BuildContext context) <span class="keyword">async</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> showDialog&lt;<span class="keyword">void</span>&gt;(</span><br><span class="line">    context: context,</span><br><span class="line">    <span class="comment">// 点击周围空白区域对话框是否消失</span></span><br><span class="line">    barrierDismissible: <span class="keyword">false</span>,</span><br><span class="line">    builder: (BuildContext context) &#123;</span><br><span class="line">      <span class="keyword">return</span> AlertDialog(</span><br><span class="line">        title: Text(<span class="string">"提示"</span>),</span><br><span class="line">        content: <span class="keyword">new</span> Text(<span class="string">"是否退出"</span>),</span><br><span class="line">        actions: &lt;Widget&gt;[</span><br><span class="line">          <span class="keyword">new</span> FlatButton(</span><br><span class="line">            onPressed: () =&gt; Navigator.of(context).pop(<span class="keyword">false</span>),</span><br><span class="line">            child: <span class="keyword">new</span> Text(<span class="string">"取消"</span>)),</span><br><span class="line">          <span class="keyword">new</span> FlatButton(</span><br><span class="line">            onPressed: () &#123;</span><br><span class="line">              Navigator.of(context).pop(<span class="keyword">true</span>);</span><br><span class="line">            &#125;,</span><br><span class="line">            child: <span class="keyword">new</span> Text(<span class="string">"确定"</span>)</span><br><span class="line">          ),</span><br><span class="line">        ],</span><br><span class="line">      );</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 自定义Dialog</span></span><br><span class="line">Future&lt;<span class="keyword">void</span>&gt; dialog2(BuildContext context) <span class="keyword">async</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> showDialog&lt;<span class="keyword">void</span>&gt;(</span><br><span class="line">      context: context,</span><br><span class="line">      builder: (BuildContext context) &#123;</span><br><span class="line">        <span class="keyword">return</span> Center(</span><br><span class="line">          child: Text(</span><br><span class="line">            <span class="string">'正在加载...'</span>,</span><br><span class="line">            style: TextStyle(</span><br><span class="line">              color: Colors.black,</span><br><span class="line">              backgroundColor: Colors.white,</span><br><span class="line">              decoration: TextDecoration.none</span><br><span class="line">            ),</span><br><span class="line">          ),</span><br><span class="line">        );</span><br><span class="line">      &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// AboutDialog</span></span><br><span class="line">Future&lt;<span class="keyword">void</span>&gt; dialog3(BuildContext context) <span class="keyword">async</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> showAboutDialog(</span><br><span class="line">    context: context,</span><br><span class="line">    applicationName: <span class="string">"应用名称"</span>,</span><br><span class="line">    applicationVersion: <span class="string">"1.0.0"</span>,</span><br><span class="line">    applicationIcon: Icon(Icons.apps),</span><br><span class="line">    applicationLegalese: <span class="string">"内容"</span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// AlertDialog 标题、内容、操作按钮</span></span><br><span class="line">Future&lt;<span class="keyword">void</span>&gt; dialog4(BuildContext context) <span class="keyword">async</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> showCupertinoDialog&lt;<span class="keyword">void</span>&gt;(</span><br><span class="line">    context: context,</span><br><span class="line">    <span class="comment">// 点击周围空白区域对话框是否消失</span></span><br><span class="line">    <span class="comment">// barrierDismissible: false,</span></span><br><span class="line">    builder: (BuildContext context) &#123;</span><br><span class="line">      <span class="keyword">return</span> CupertinoAlertDialog(</span><br><span class="line">        title: Text(<span class="string">"提示"</span>),</span><br><span class="line">        content: <span class="keyword">new</span> Text(<span class="string">"是否退出"</span>),</span><br><span class="line">        actions: &lt;Widget&gt;[</span><br><span class="line">          <span class="keyword">new</span> FlatButton(</span><br><span class="line">            onPressed: () =&gt; Navigator.of(context).pop(<span class="keyword">false</span>),</span><br><span class="line">            child: <span class="keyword">new</span> Text(<span class="string">"取消"</span>)),</span><br><span class="line">          <span class="keyword">new</span> FlatButton(</span><br><span class="line">            onPressed: () &#123;</span><br><span class="line">              Navigator.of(context).pop(<span class="keyword">true</span>);</span><br><span class="line">            &#125;,</span><br><span class="line">            child: <span class="keyword">new</span> Text(<span class="string">"确定"</span>)</span><br><span class="line">          ),</span><br><span class="line">        ],</span><br><span class="line">      );</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a href="https://github.com/SeptemberMaples/study-section/tree/flutter_study/flutter_study/lib/flutter_04" target="_blank" rel="noopener">相关代码</a></p>
+<hr>
+<p>参考：</p>
+<ul>
+<li><a href="https://api.flutter.dev/flutter/widgets/Text-class.html" target="_blank" rel="noopener">flutter官网</a></li>
+<li>【Flutter—从入门到实践(by Ray)】学习笔记</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/flutter/" rel="tag"># flutter</a>
+          
+            <a href="/tags/widget/" rel="tag"># widget</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/13/flutter-basic-widgets/" rel="next" title="Flutter学习-03：基础widgets - Text、Image、Button">
+                <i class="fa fa-chevron-left"></i> Flutter学习-03：基础widgets - Text、Image、Button
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/15/flutter-basic-widget-3/" rel="prev" title="Flutter学习-05：基础widgets - Form 表单">
+                Flutter学习-05：基础widgets - Form 表单 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div id="vcomments"></div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="九月枫林" />
+            
+              <p class="site-author-name" itemprop="name">九月枫林</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/SeptemberMaples" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:jiuyuefenglin@gmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/jiuyuefenglin" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.zhihu.com/people/yangyong222" target="_blank" title="知乎">
+                    
+                      <i class="fa fa-fw fa-globe"></i>知乎</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#AppBar-Widget"><span class="nav-number">1.</span> <span class="nav-text">AppBar Widget</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AppBar-Widget-构造方法"><span class="nav-number">1.1.</span> <span class="nav-text">AppBar Widget 构造方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AppBar-Widget-实例"><span class="nav-number">1.2.</span> <span class="nav-text">AppBar Widget 实例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Icon-Widget"><span class="nav-number">2.</span> <span class="nav-text">Icon Widget</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Icon-Widget-构造方法和属性"><span class="nav-number">2.1.</span> <span class="nav-text">Icon Widget 构造方法和属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Icon-Widget-实例"><span class="nav-number">2.2.</span> <span class="nav-text">Icon Widget 实例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AlertDialog-Widget"><span class="nav-number">3.</span> <span class="nav-text">AlertDialog Widget</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AlertDialog-构造方法和属性"><span class="nav-number">3.1.</span> <span class="nav-text">AlertDialog 构造方法和属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AlertDialog-实例"><span class="nav-number">3.2.</span> <span class="nav-text">AlertDialog 实例</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九月枫林</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine@1.1.4/dist/Valine.min.js"></script>
+  <script type="text/javascript">
+    new Valine({
+        av: AV,
+        el: '#vcomments' ,
+        verify: true,
+        notify: false,
+        app_id: 'fyGrIsuAaAKmLUl8jRfcPcda-gzGzoHsz',
+        app_key: 'tAseGFsYxXWyNK8EIOLHxmlz',
+        placeholder: '说点什么吧~'
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("fyGrIsuAaAKmLUl8jRfcPcda-gzGzoHsz", "tAseGFsYxXWyNK8EIOLHxmlz");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.3"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.3"></script>
+
+
+  
+
+</body>
+</html>

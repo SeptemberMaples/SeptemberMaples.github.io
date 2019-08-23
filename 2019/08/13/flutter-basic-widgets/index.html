@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="flutter,widget," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Text Widget Text widget 可以用来在应用内创建带样式的文本。功能类似于HTML的文本标签，属于基础widget。  Textwidget 是个 StatelessWidget，也就是无状态组件。其继承关系如下： Text -&amp;gt; StatelessWidget -&amp;gt; Widget -&amp;gt; DiagnosticableTree -&amp;gt; Diagnosticab">
+<meta name="keywords" content="flutter,widget">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flutter学习-03：基础widgets - Text、Image、Button">
+<meta property="og:url" content="http://yangyong.xyz/2019/08/13/flutter-basic-widgets/index.html">
+<meta property="og:site_name" content="九月枫林">
+<meta property="og:description" content="Text Widget Text widget 可以用来在应用内创建带样式的文本。功能类似于HTML的文本标签，属于基础widget。  Textwidget 是个 StatelessWidget，也就是无状态组件。其继承关系如下： Text -&amp;gt; StatelessWidget -&amp;gt; Widget -&amp;gt; DiagnosticableTree -&amp;gt; Diagnosticab">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yangyong.xyz/images/2019-08-13/flutter_study_01.png">
+<meta property="og:image" content="http://yangyong.xyz/images/2019-08-13/flutter_study_02.png">
+<meta property="og:image" content="http://yangyong.xyz/images/2019-08-13/flutter_study_03.png">
+<meta property="og:image" content="http://yangyong.xyz/images/2019-08-13/flutter_study_04.png">
+<meta property="og:updated_time" content="2019-08-15T15:18:59.603Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Flutter学习-03：基础widgets - Text、Image、Button">
+<meta name="twitter:description" content="Text Widget Text widget 可以用来在应用内创建带样式的文本。功能类似于HTML的文本标签，属于基础widget。  Textwidget 是个 StatelessWidget，也就是无状态组件。其继承关系如下： Text -&amp;gt; StatelessWidget -&amp;gt; Widget -&amp;gt; DiagnosticableTree -&amp;gt; Diagnosticab">
+<meta name="twitter:image" content="http://yangyong.xyz/images/2019-08-13/flutter_study_01.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'S8WI7CQ2RG',
+      apiKey: '1e5d4e0537d3136202da11c5c5b766b9',
+      indexName: 'blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键词","hits_empty":"没有找到与 ${query} 相关的内容","hits_stats":"${hits}条相关记录，共耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yangyong.xyz/2019/08/13/flutter-basic-widgets/"/>
+
+
+
+
+
+  <title>Flutter学习-03：基础widgets - Text、Image、Button | 九月枫林</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九月枫林</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Simon Young</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yangyong.xyz/2019/08/13/flutter-basic-widgets/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九月枫林">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九月枫林">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Flutter学习-03：基础widgets - Text、Image、Button</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-13T10:20:14+08:00">
+                2019-08-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Flutter/" itemprop="url" rel="index">
+                    <span itemprop="name">Flutter</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/08/13/flutter-basic-widgets/" class="leancloud_visitors" data-flag-title="Flutter学习-03：基础widgets - Text、Image、Button">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Text-Widget"><a href="#Text-Widget" class="headerlink" title="Text Widget"></a>Text Widget</h3><blockquote>
+<p>Text widget 可以用来在应用内创建带样式的文本。功能类似于HTML的文本标签，属于基础widget。</p>
+</blockquote>
+<p><code>Text</code>widget 是个 StatelessWidget，也就是无状态组件。其继承关系如下：</p>
+<p><strong>Text -&gt; StatelessWidget -&gt; Widget -&gt; DiagnosticableTree -&gt; Diagnosticable -&gt; Object</strong></p>
+<p>Text widget包含两个构造方法：<code>Text</code>和<code>Text.rich</code>;</p>
+<a id="more"></a>
+<h4 id="Text构造方法及属性"><a href="#Text构造方法及属性" class="headerlink" title="Text构造方法及属性"></a>Text构造方法及属性</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">Text(</span><br><span class="line">  <span class="comment">//要显示的文字内容。非空的，必须有的参数，传入要显示的 String 类型的字符串</span></span><br><span class="line">  <span class="built_in">String</span> data, </span><br><span class="line">  &#123; </span><br><span class="line">    <span class="comment">//key类似于id</span></span><br><span class="line">    Key key, </span><br><span class="line">    <span class="comment">//文字显示样式和属性</span></span><br><span class="line">    TextStyle style, </span><br><span class="line">    StrutStyle strutStyle, </span><br><span class="line">    <span class="comment">//文字对齐方式</span></span><br><span class="line">    TextAlign textAlign, </span><br><span class="line">    <span class="comment">//文字显示方向</span></span><br><span class="line">    TextDirection textDirection, </span><br><span class="line">    <span class="comment">//设置语言环境</span></span><br><span class="line">    Locale locale, </span><br><span class="line">    <span class="comment">//是否自动换行</span></span><br><span class="line">    <span class="built_in">bool</span> softWrap, </span><br><span class="line">    <span class="comment">//文字溢出后处理方式</span></span><br><span class="line">    TextOverflow overflow, </span><br><span class="line">    <span class="comment">//字体缩放</span></span><br><span class="line">    <span class="built_in">double</span> textScaleFactor, </span><br><span class="line">    <span class="comment">//最大显示行数。配合 overflow，实现...</span></span><br><span class="line">    <span class="built_in">int</span> maxLines, </span><br><span class="line">    <span class="comment">//图像的语义描述，用于向Andoid上的TalkBack和iOS上的VoiceOver提供图像描述</span></span><br><span class="line">    <span class="built_in">String</span> semanticsLabel, </span><br><span class="line">    <span class="comment">// 组件的显示宽度。有三个值：longestLine / parent / values </span></span><br><span class="line">    TextWidthBasis textWidthBasis </span><br><span class="line">  &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>其中<code>style</code>属于是UI里最常用到的，传入<code>TextStyle</code>对象。些对象包含的属性：<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">TextStyle(</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">//是否继承父类组件属性</span></span><br><span class="line">    <span class="built_in">bool</span> inherit: <span class="keyword">true</span>, </span><br><span class="line">    <span class="comment">//字体颜色</span></span><br><span class="line">    Color color, </span><br><span class="line">    <span class="comment">// 背景色。 与 background 不能同时存在</span></span><br><span class="line">    Color backgroundColor, </span><br><span class="line">    <span class="comment">//文字大小，默认14px</span></span><br><span class="line">    <span class="built_in">double</span> fontSize, </span><br><span class="line">    <span class="comment">//字体粗细</span></span><br><span class="line">    FontWeight fontWeight, </span><br><span class="line">    <span class="comment">//字体样式,normal或italic</span></span><br><span class="line">    FontStyle fontStyle, </span><br><span class="line">    <span class="comment">//字母间距，默认为0，负数间距缩小，正数间距增大</span></span><br><span class="line">    <span class="built_in">double</span> letterSpacing, </span><br><span class="line">    <span class="comment">//单词间距，默认为0，负数间距缩小，正数间距增大</span></span><br><span class="line">    <span class="built_in">double</span> wordSpacing, </span><br><span class="line">    <span class="comment">//字体基线</span></span><br><span class="line">    TextBaseline textBaseline, </span><br><span class="line">    <span class="comment">//行高</span></span><br><span class="line">    <span class="built_in">double</span> height, </span><br><span class="line">    <span class="comment">//设置区域</span></span><br><span class="line">    Locale locale, </span><br><span class="line">    <span class="comment">//前景色</span></span><br><span class="line">    Paint foreground, </span><br><span class="line">    <span class="comment">//背景色</span></span><br><span class="line">    Paint background, </span><br><span class="line">    <span class="comment">//阴影</span></span><br><span class="line">    <span class="built_in">List</span>&lt;Shadow&gt; shadows, </span><br><span class="line">    <span class="built_in">List</span>&lt;FontFeature&gt; fontFeatures, </span><br><span class="line">    <span class="comment">//文字划线，下换线等装饰</span></span><br><span class="line">    TextDecoration decoration, </span><br><span class="line">    <span class="comment">//划线颜色</span></span><br><span class="line">    Color decorationColor, </span><br><span class="line">    <span class="comment">//划线样式，虚线、实线等样式</span></span><br><span class="line">    TextDecorationStyle decorationStyle,</span><br><span class="line">    <span class="comment">//划线样式，粗细 </span></span><br><span class="line">    <span class="built_in">double</span> decorationThickness, </span><br><span class="line">    <span class="comment">//描述信息</span></span><br><span class="line">    <span class="built_in">String</span> debugLabel, </span><br><span class="line">    <span class="comment">//字体</span></span><br><span class="line">    <span class="built_in">String</span> fontFamily, </span><br><span class="line">    <span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt; fontFamilyFallback, </span><br><span class="line">    <span class="built_in">String</span> package </span><br><span class="line">  &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<h4 id="Text-rich-构造方法及属性"><a href="#Text-rich-构造方法及属性" class="headerlink" title="Text.rich()构造方法及属性"></a>Text.rich()构造方法及属性</h4><p><code>Text.rich()</code>作用就是可以在 Text 里加入一些 Span 标签，对某部分文字进行个性化改变样式，如加入 @ 符号，加入超链接、变色等等。Text.rich(…) 等价于 RichText(…)</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Text.rich(</span><br><span class="line">  <span class="comment">// 样式片段标签TextSpan</span></span><br><span class="line">  InlineSpan textSpan, </span><br><span class="line">  &#123;</span><br><span class="line">    Key key,</span><br><span class="line">    TextStyle style,</span><br><span class="line">    StrutStyle strutStyle,</span><br><span class="line">    TextAlign textAlign,</span><br><span class="line">    TextDirection textDirection,</span><br><span class="line">    Locale locale,</span><br><span class="line">    <span class="built_in">bool</span> softWrap,</span><br><span class="line">    TextOverflow overflow,</span><br><span class="line">    <span class="built_in">double</span> textScaleFactor,</span><br><span class="line">    <span class="built_in">int</span> maxLines,</span><br><span class="line">    <span class="built_in">String</span> semanticsLabel,</span><br><span class="line">    TextWidthBasis textWidthBasis</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">RichText(&#123;</span><br><span class="line">  Key key,</span><br><span class="line">  <span class="meta">@required</span> InlineSpan text,</span><br><span class="line">  TextAlign textAlign: TextAlign.start,</span><br><span class="line">  TextDirection textDirection,</span><br><span class="line">  <span class="built_in">bool</span> softWrap: <span class="keyword">true</span>,</span><br><span class="line">  TextOverflow overflow: TextOverflow.clip,</span><br><span class="line">  <span class="built_in">double</span> textScaleFactor: <span class="number">1.0</span>,</span><br><span class="line">  <span class="built_in">int</span> maxLines,</span><br><span class="line">  Locale locale,</span><br><span class="line">  StrutStyle strutStyle,</span><br><span class="line">  TextWidthBasis textWidthBasis: TextWidthBasis.parent</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>样式标签 <code>TextSpan</code> 的构造方法：<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> TextSpan(&#123;</span><br><span class="line">  <span class="comment">//样式片段</span></span><br><span class="line">  <span class="keyword">this</span>.style,</span><br><span class="line">  <span class="comment">//要显示的文字</span></span><br><span class="line">  <span class="keyword">this</span>.text,</span><br><span class="line">  <span class="comment">//样式片段TextSpan数组，可以包含多个TextSpan</span></span><br><span class="line">  <span class="keyword">this</span>.children,</span><br><span class="line">  <span class="comment">//用于手势进行识别处理,如点击跳转</span></span><br><span class="line">  <span class="keyword">this</span>.recognizer,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h4 id="Text-widget-实例"><a href="#Text-widget-实例" class="headerlink" title="Text widget 实例"></a>Text widget 实例</h4><p>Text widget的常用方法和属性上面介绍了， 现在来具体操作一下。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 核心代码</span></span><br><span class="line">body: Container(</span><br><span class="line">  child: Column(</span><br><span class="line">    children: &lt;Widget&gt;[</span><br><span class="line">      <span class="comment">// 最基础用法</span></span><br><span class="line">      Text(<span class="string">'Text 最基础用法'</span>),</span><br><span class="line">      <span class="comment">// TextStyle 字体相关、字号、颜色、透明度、下划线等</span></span><br><span class="line">      Text(</span><br><span class="line">        <span class="string">'设置文字样式'</span>,</span><br><span class="line">        style: TextStyle(</span><br><span class="line">          fontWeight: FontWeight.bold,</span><br><span class="line">          fontSize: <span class="number">24</span>,</span><br><span class="line">          color: Colors.green,</span><br><span class="line">          backgroundColor: Colors.black87,</span><br><span class="line">          <span class="comment">// background: Paint()..color,  // 同上面的backgroundColor</span></span><br><span class="line">          decoration: TextDecoration.underline,</span><br><span class="line">          decorationThickness: <span class="number">2</span>,</span><br><span class="line">          letterSpacing: <span class="number">5.0</span></span><br><span class="line">        ),</span><br><span class="line">        textWidthBasis: TextWidthBasis.longestLine,</span><br><span class="line">      ),</span><br><span class="line">      <span class="comment">// 换行、裁剪</span></span><br><span class="line">      Text(</span><br><span class="line">        <span class="string">'文字换行，超出的文字用省略号表示.文字换行，超出的文字用省略号表示.文字换行，超出的文字用省略号表示.文字换行，超出的文字用省略号表示'</span>,</span><br><span class="line">        maxLines: <span class="number">2</span>,</span><br><span class="line">        overflow: TextOverflow.ellipsis,</span><br><span class="line">        style: TextStyle(</span><br><span class="line">          fontSize: <span class="number">16</span>,</span><br><span class="line">          fontWeight: FontWeight.bold,</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">      <span class="comment">// Text.rich()</span></span><br><span class="line">      Text.rich(TextSpan(</span><br><span class="line">        text: <span class="string">'TextSpan'</span>,</span><br><span class="line">        style: TextStyle(</span><br><span class="line">          color: Colors.orange,</span><br><span class="line">          fontSize: <span class="number">30.0</span>,</span><br><span class="line">          decoration: TextDecoration.none,</span><br><span class="line">        ),</span><br><span class="line">        children: &lt;TextSpan&gt;[</span><br><span class="line">          <span class="keyword">new</span> TextSpan(</span><br><span class="line">            text: <span class="string">'拼接1'</span>,</span><br><span class="line">            style: <span class="keyword">new</span> TextStyle(</span><br><span class="line">              color: Colors.teal,</span><br><span class="line">            ),</span><br><span class="line">          ),</span><br><span class="line">          <span class="keyword">new</span> TextSpan(</span><br><span class="line">            text: <span class="string">'拼接2'</span>,</span><br><span class="line">            style: <span class="keyword">new</span> TextStyle(</span><br><span class="line">              color: Colors.teal,</span><br><span class="line">            ),</span><br><span class="line">          ),</span><br><span class="line">          <span class="keyword">new</span> TextSpan(</span><br><span class="line">            text: <span class="string">'拼接3有点击事件'</span>,</span><br><span class="line">            style: <span class="keyword">new</span> TextStyle(</span><br><span class="line">              color: Colors.yellow,</span><br><span class="line">            ),</span><br><span class="line">            recognizer: <span class="keyword">new</span> TapGestureRecognizer()</span><br><span class="line">              ..onTap = () &#123;</span><br><span class="line">                <span class="comment">//增加一个点击事件</span></span><br><span class="line">                <span class="built_in">print</span>(</span><br><span class="line">                    <span class="string">'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'</span>);</span><br><span class="line">              &#125;,</span><br><span class="line">          ),</span><br><span class="line">        ],</span><br><span class="line">      )),</span><br><span class="line">    ],</span><br><span class="line">  ),</span><br><span class="line">),</span><br></pre></td></tr></table></figure>
+<p>效果如下：<br><img src="/images/2019-08-13/flutter_study_01.png"></p>
+<hr>
+<h3 id="Image-Widget"><a href="#Image-Widget" class="headerlink" title="Image Widget"></a>Image Widget</h3><blockquote>
+<p>Image Widget 在 Flutter 里是用来负责显示图片的一个组件，功能类似于 Android的ImageView、Html 的一些image 标签等等，属于基础组件。</p>
+</blockquote>
+<p>Image 是个 StatefulWidget，也就是有状态组件。继承关系如下：</p>
+<p><strong>Image -&gt; StatefulWidget -&gt; Widget -&gt; DiagnosticableTree -&gt; Diagnosticable -&gt; Object</strong></p>
+<p>Image Widget 有5个构造方法和多个属性。 </p>
+<p>Image 支持 5 种方式加载图片:</p>
+<ul>
+<li>Image：通过 ImageProvider 来加载图片</li>
+<li>Image.network：用来加载网络图片</li>
+<li>Image.file：用来加载本地 File 文件图片</li>
+<li>Image.asset：用来加载项目内资源图片</li>
+<li>Image.memory：用来加载 Uint8List 资源图片/内存图片</li>
+</ul>
+<p>其中这几种其实都是通过 ImageProvider 来从不同源加载图片的，封装类有：NetworkImage、FileImage、AssetImage、ExactAssetImage、MemoryImage。我们既可以用这几个构造方法加载图片，也可以使用这几个封装类来加载。</p>
+<h4 id="Image-Widget方法及属性"><a href="#Image-Widget方法及属性" class="headerlink" title="Image Widget方法及属性"></a>Image Widget方法及属性</h4><p>5个构造方法的使用及属性：<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//通过ImageProvider来加载图片</span></span><br><span class="line"><span class="keyword">const</span> Image(&#123;</span><br><span class="line">    Key key,</span><br><span class="line">    <span class="comment">// ImageProvider，图像显示源</span></span><br><span class="line">    <span class="meta">@required</span> <span class="keyword">this</span>.image,</span><br><span class="line">    <span class="keyword">this</span>.semanticLabel,</span><br><span class="line">    <span class="keyword">this</span>.excludeFromSemantics = <span class="keyword">false</span>,</span><br><span class="line">    <span class="comment">//显示宽度</span></span><br><span class="line">    <span class="keyword">this</span>.width,</span><br><span class="line">    <span class="comment">//显示高度</span></span><br><span class="line">    <span class="keyword">this</span>.height,</span><br><span class="line">    <span class="comment">//图片的混合色值</span></span><br><span class="line">    <span class="keyword">this</span>.color,</span><br><span class="line">    <span class="comment">//混合模式</span></span><br><span class="line">    <span class="keyword">this</span>.colorBlendMode,</span><br><span class="line">    <span class="comment">//缩放显示模式</span></span><br><span class="line">    <span class="keyword">this</span>.fit,</span><br><span class="line">    <span class="comment">//对齐方式</span></span><br><span class="line">    <span class="keyword">this</span>.alignment = Alignment.center,</span><br><span class="line">    <span class="comment">//重复方式</span></span><br><span class="line">    <span class="keyword">this</span>.repeat = ImageRepeat.noRepeat,</span><br><span class="line">    <span class="comment">//当图片需要被拉伸显示的时候，centerSlice定义的矩形区域会被拉伸，类似.9图片</span></span><br><span class="line">    <span class="keyword">this</span>.centerSlice,</span><br><span class="line">    <span class="comment">//类似于文字的显示方向</span></span><br><span class="line">    <span class="keyword">this</span>.matchTextDirection = <span class="keyword">false</span>,</span><br><span class="line">    <span class="comment">//图片发生变化后，加载过程中原图片保留还是留白</span></span><br><span class="line">    <span class="keyword">this</span>.gaplessPlayback = <span class="keyword">false</span>,</span><br><span class="line">    <span class="comment">//图片显示质量</span></span><br><span class="line">    <span class="keyword">this</span>.filterQuality = FilterQuality.low,</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 加载网络图片，封装类：NetworkImage</span></span><br><span class="line">Image.network(</span><br><span class="line">    <span class="comment">//路径</span></span><br><span class="line">    <span class="built_in">String</span> src, </span><br><span class="line">   &#123;</span><br><span class="line">    Key key,</span><br><span class="line">    <span class="comment">//缩放</span></span><br><span class="line">    <span class="built_in">double</span> scale = <span class="number">1.0</span>,</span><br><span class="line">    <span class="keyword">this</span>.semanticLabel,</span><br><span class="line">    <span class="keyword">this</span>.excludeFromSemantics = <span class="keyword">false</span>,</span><br><span class="line">    <span class="keyword">this</span>.width,</span><br><span class="line">    <span class="keyword">this</span>.height,</span><br><span class="line">    <span class="keyword">this</span>.color,</span><br><span class="line">    <span class="keyword">this</span>.colorBlendMode,</span><br><span class="line">    <span class="keyword">this</span>.fit,</span><br><span class="line">    <span class="keyword">this</span>.alignment = Alignment.center,</span><br><span class="line">    <span class="keyword">this</span>.repeat = ImageRepeat.noRepeat,</span><br><span class="line">    <span class="keyword">this</span>.centerSlice,</span><br><span class="line">    <span class="keyword">this</span>.matchTextDirection = <span class="keyword">false</span>,</span><br><span class="line">    <span class="keyword">this</span>.gaplessPlayback = <span class="keyword">false</span>,</span><br><span class="line">    <span class="keyword">this</span>.filterQuality = FilterQuality.low,</span><br><span class="line">    <span class="built_in">Map</span>&lt;<span class="built_in">String</span>, <span class="built_in">String</span>&gt; headers,</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 加载本地File文件图片，封装类：FileImage</span></span><br><span class="line">Image.file(</span><br><span class="line">    <span class="comment">//File对象</span></span><br><span class="line">    File file, </span><br><span class="line">  &#123;</span><br><span class="line">    Key key,</span><br><span class="line">    <span class="built_in">double</span> scale = <span class="number">1.0</span>,</span><br><span class="line">    <span class="keyword">this</span>.semanticLabel,</span><br><span class="line">    <span class="keyword">this</span>.excludeFromSemantics = <span class="keyword">false</span>,</span><br><span class="line">    <span class="keyword">this</span>.width,</span><br><span class="line">    <span class="keyword">this</span>.height,</span><br><span class="line">    <span class="keyword">this</span>.color,</span><br><span class="line">    <span class="keyword">this</span>.colorBlendMode,</span><br><span class="line">    <span class="keyword">this</span>.fit,</span><br><span class="line">    <span class="keyword">this</span>.alignment = Alignment.center,</span><br><span class="line">    <span class="keyword">this</span>.repeat = ImageRepeat.noRepeat,</span><br><span class="line">    <span class="keyword">this</span>.centerSlice,</span><br><span class="line">    <span class="keyword">this</span>.matchTextDirection = <span class="keyword">false</span>,</span><br><span class="line">    <span class="keyword">this</span>.gaplessPlayback = <span class="keyword">false</span>,</span><br><span class="line">    <span class="keyword">this</span>.filterQuality = FilterQuality.low,</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 加载本地资源图片,例如项目内资源图片</span></span><br><span class="line"><span class="comment">// 需要把图片路径在pubspec.yaml文件中声明一下，如：</span></span><br><span class="line"><span class="comment">// assets:</span></span><br><span class="line"><span class="comment">//      - packages/fancy_backgrounds/backgrounds/background1.png</span></span><br><span class="line"><span class="comment">// 封装类有：AssetImage、ExactAssetImage</span></span><br><span class="line">Image.asset(</span><br><span class="line">    <span class="comment">//文件名称，包含路径</span></span><br><span class="line">    <span class="built_in">String</span> name, </span><br><span class="line">  &#123;</span><br><span class="line">    Key key,</span><br><span class="line">    <span class="comment">// 用于访问资源对象</span></span><br><span class="line">    AssetBundle bundle,</span><br><span class="line">    <span class="keyword">this</span>.semanticLabel,</span><br><span class="line">    <span class="keyword">this</span>.excludeFromSemantics = <span class="keyword">false</span>,</span><br><span class="line">    <span class="built_in">double</span> scale,</span><br><span class="line">    <span class="keyword">this</span>.width,</span><br><span class="line">    <span class="keyword">this</span>.height,</span><br><span class="line">    <span class="keyword">this</span>.color,</span><br><span class="line">    <span class="keyword">this</span>.colorBlendMode,</span><br><span class="line">    <span class="keyword">this</span>.fit,</span><br><span class="line">    <span class="keyword">this</span>.alignment = Alignment.center,</span><br><span class="line">    <span class="keyword">this</span>.repeat = ImageRepeat.noRepeat,</span><br><span class="line">    <span class="keyword">this</span>.centerSlice,</span><br><span class="line">    <span class="keyword">this</span>.matchTextDirection = <span class="keyword">false</span>,</span><br><span class="line">    <span class="keyword">this</span>.gaplessPlayback = <span class="keyword">false</span>,</span><br><span class="line">    <span class="built_in">String</span> package,</span><br><span class="line">    <span class="keyword">this</span>.filterQuality = FilterQuality.low,</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 加载Uint8List资源图片/从内存中获取图片显示</span></span><br><span class="line"><span class="comment">// 封装类：MemoryImage</span></span><br><span class="line">Image.memory(</span><br><span class="line">    <span class="comment">// Uint8List资源图片</span></span><br><span class="line">    Uint8List bytes,</span><br><span class="line">  &#123;</span><br><span class="line">    Key key,</span><br><span class="line">    <span class="built_in">double</span> scale = <span class="number">1.0</span>,</span><br><span class="line">    <span class="keyword">this</span>.semanticLabel,</span><br><span class="line">    <span class="keyword">this</span>.excludeFromSemantics = <span class="keyword">false</span>,</span><br><span class="line">    <span class="keyword">this</span>.width,</span><br><span class="line">    <span class="keyword">this</span>.height,</span><br><span class="line">    <span class="keyword">this</span>.color,</span><br><span class="line">    <span class="keyword">this</span>.colorBlendMode,</span><br><span class="line">    <span class="keyword">this</span>.fit,</span><br><span class="line">    <span class="keyword">this</span>.alignment = Alignment.center,</span><br><span class="line">    <span class="keyword">this</span>.repeat = ImageRepeat.noRepeat,</span><br><span class="line">    <span class="keyword">this</span>.centerSlice,</span><br><span class="line">    <span class="keyword">this</span>.matchTextDirection = <span class="keyword">false</span>,</span><br><span class="line">    <span class="keyword">this</span>.gaplessPlayback = <span class="keyword">false</span>,</span><br><span class="line">    <span class="keyword">this</span>.filterQuality = FilterQuality.low,</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure></p>
+<h4 id="colorBlendMode-混合模式"><a href="#colorBlendMode-混合模式" class="headerlink" title="colorBlendMode 混合模式"></a>colorBlendMode 混合模式</h4><p>主要用在使用<code>canvas</code>画图时。<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Flutter一共29种混合模式</span></span><br><span class="line"><span class="keyword">enum</span> BlendMode &#123;</span><br><span class="line">  clear,src,dst,srcOver,dstOver,srcIn,dstIn,srcOut,dstOut,srcATop,dstATop,xor,plus，modulate,screen,overlay,darken,lighten,colorDodge,colorBurn,hardLight,softLight,difference,exclusion,multiply,hue,saturation,color,luminosity,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>显示效果：<br><img src="/images/2019-08-13/flutter_study_02.png"></p>
+<h4 id="fit-缩放显示模式"><a href="#fit-缩放显示模式" class="headerlink" title="fit 缩放显示模式"></a>fit 缩放显示模式</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//主要有7种</span></span><br><span class="line"><span class="keyword">enum</span> BoxFit &#123;</span><br><span class="line">  fill,</span><br><span class="line">  contain,</span><br><span class="line">  cover,</span><br><span class="line">  fitWidth,</span><br><span class="line">  fitHeight,</span><br><span class="line">  none,</span><br><span class="line">  scaleDown,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>fill 填充模式，拉伸充满</li>
+<li>contain，全图显示，显示原比例，不需充满</li>
+<li>cover，显示可能拉伸，可能裁剪，充满</li>
+<li>fitWidth，显示可能拉伸，可能裁剪，宽度充满</li>
+<li>fitHeight，显示可能拉伸，可能裁剪，高度充满</li>
+<li>none，对图片不做任何处理显示，高出控件大小就裁剪，否则不处理</li>
+<li>scaleDown，全图显示，显示原比例，不允许显示超过源图片大小，可小不可大</li>
+</ul>
+<h4 id="Image-Widget-实例"><a href="#Image-Widget-实例" class="headerlink" title="Image Widget 实例"></a>Image Widget 实例</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 部分代码</span></span><br><span class="line">body: CustomScrollView(</span><br><span class="line">     slivers: &lt;Widget&gt;[</span><br><span class="line">       SliverPadding(</span><br><span class="line">         padding: EdgeInsets.all(<span class="number">20.0</span>),</span><br><span class="line">         sliver: SliverList(</span><br><span class="line">           delegate: SliverChildListDelegate(</span><br><span class="line">             &lt;Widget&gt;[</span><br><span class="line">               <span class="comment">// 读取网络图片</span></span><br><span class="line">                Image.network(imageUrl),</span><br><span class="line">                Text(</span><br><span class="line">                  <span class="string">"读取网络图片"</span>,</span><br><span class="line">                  textAlign: TextAlign.center,</span><br><span class="line">                ),</span><br><span class="line">                Image(</span><br><span class="line">                  image: NetworkImage(imageUrl),</span><br><span class="line">                  height: <span class="number">100</span>,</span><br><span class="line">                  fit: BoxFit.contain,</span><br><span class="line">                ),</span><br><span class="line">                Text(</span><br><span class="line">                  <span class="string">"用NetworkImage读取网络图片"</span>,</span><br><span class="line">                  textAlign: TextAlign.center,</span><br><span class="line">                ),</span><br><span class="line"></span><br><span class="line">                <span class="comment">//从项目目录里读取图片，需要在pubspec.yaml注册路径</span></span><br><span class="line">                Image.asset(<span class="string">"lib/images/assets_image.jpg"</span>),</span><br><span class="line">                Text(</span><br><span class="line">                  <span class="string">"项目asset目录里读取"</span>,</span><br><span class="line">                  textAlign: TextAlign.center,</span><br><span class="line">                ),</span><br><span class="line">                Image(</span><br><span class="line">                  image: AssetImage(<span class="string">"lib/images/assets_image.jpg"</span>),</span><br><span class="line">                  width: <span class="number">200</span>,</span><br><span class="line">                  height: <span class="number">130</span>,</span><br><span class="line">                ),</span><br><span class="line">                Text(</span><br><span class="line">                  <span class="string">"AssetImage读取"</span>,</span><br><span class="line">                  textAlign: TextAlign.center,</span><br><span class="line">                ),</span><br><span class="line"></span><br><span class="line">                <span class="comment">/// 从文件读取图片</span></span><br><span class="line">                <span class="comment">// Image.file(</span></span><br><span class="line">                <span class="comment">//   File('/sdcard/img.png'),</span></span><br><span class="line">                <span class="comment">//   width: 200,</span></span><br><span class="line">                <span class="comment">//   height: 80,</span></span><br><span class="line">                <span class="comment">// ),</span></span><br><span class="line">                <span class="comment">// Image(</span></span><br><span class="line">                <span class="comment">//   image: FileImage(File('/sdcard/img.png')),</span></span><br><span class="line">                <span class="comment">// ),</span></span><br><span class="line"></span><br><span class="line">                <span class="comment">///内存中读取byte数组图片</span></span><br><span class="line">                <span class="comment">/// Image.memory(bytes)</span></span><br><span class="line">                <span class="comment">/// Image(</span></span><br><span class="line">                <span class="comment">///   image: MemoryImage(bytes),</span></span><br><span class="line">                <span class="comment">/// ),</span></span><br><span class="line">                 </span><br><span class="line">                <span class="comment">///加入占位图的加载图片</span></span><br><span class="line">                <span class="comment">// FadeInImage(</span></span><br><span class="line">                <span class="comment">//   placeholder: AssetImage("lib/images/assets_image.jpg"),</span></span><br><span class="line">                <span class="comment">//   image: FileImage(File('/sdcard/img.png')),</span></span><br><span class="line">                <span class="comment">// ),</span></span><br><span class="line">                FadeInImage.assetNetwork(</span><br><span class="line">                  placeholder: <span class="string">"lib/images/assets_image.jpg"</span>,</span><br><span class="line">                  image: imageUrl,</span><br><span class="line">                ),</span><br><span class="line">                Text(</span><br><span class="line">                  <span class="string">"加入占位图的加载图片"</span>,</span><br><span class="line">                  textAlign: TextAlign.center,</span><br><span class="line">                ),</span><br><span class="line"></span><br><span class="line">                <span class="comment">///加载圆角图片</span></span><br><span class="line">                CircleAvatar(</span><br><span class="line">                  backgroundColor: Colors.brown.shade800,</span><br><span class="line">                  child: Text(<span class="string">"圆角头像"</span>),</span><br><span class="line">                  backgroundImage: AssetImage(<span class="string">"lib/images/assets_image.jpg"</span>),</span><br><span class="line">                  radius: <span class="number">100.0</span>,</span><br><span class="line">                ),</span><br><span class="line">                Text(</span><br><span class="line">                  <span class="string">"加载圆角图片"</span>,</span><br><span class="line">                  textAlign: TextAlign.center,</span><br><span class="line">                ),</span><br><span class="line"></span><br><span class="line">                ImageIcon(NetworkImage(imageUrl)),</span><br><span class="line">                Text(</span><br><span class="line">                  <span class="string">"ImageIcon"</span>,</span><br><span class="line">                  textAlign: TextAlign.center,</span><br><span class="line">                ),</span><br><span class="line">                ClipRRect(</span><br><span class="line">                  child: Image.network(</span><br><span class="line">                    imageUrl,</span><br><span class="line">                    scale: <span class="number">8.5</span>,</span><br><span class="line">                    fit: BoxFit.cover,</span><br><span class="line">                  ),</span><br><span class="line">                  borderRadius: BorderRadius.only(</span><br><span class="line">                    topLeft: Radius.circular(<span class="number">20</span>),</span><br><span class="line">                    topRight: Radius.circular(<span class="number">20</span>),</span><br><span class="line">                  ),</span><br><span class="line">                ),</span><br><span class="line">                Text(</span><br><span class="line">                  <span class="string">"ClipRRect"</span>,</span><br><span class="line">                  textAlign: TextAlign.center,</span><br><span class="line">                ),</span><br><span class="line"></span><br><span class="line">                 Container(</span><br><span class="line">                  width: <span class="number">120</span>,</span><br><span class="line">                  height: <span class="number">60</span>,</span><br><span class="line">                  decoration: BoxDecoration(</span><br><span class="line">                    shape: BoxShape.rectangle,</span><br><span class="line">                    borderRadius: BorderRadius.circular(<span class="number">10.0</span>),</span><br><span class="line">                    image: DecorationImage(</span><br><span class="line">                        image: NetworkImage(imageUrl), fit: BoxFit.cover),</span><br><span class="line">                  ),</span><br><span class="line">                ),</span><br><span class="line">                Text(</span><br><span class="line">                  <span class="string">"BoxDecoration"</span>,</span><br><span class="line">                  textAlign: TextAlign.center,</span><br><span class="line">                ),</span><br><span class="line">                ClipOval(</span><br><span class="line">                  child: Image.network(</span><br><span class="line">                    imageUrl,</span><br><span class="line">                    scale: <span class="number">8.5</span>,</span><br><span class="line">                  ),</span><br><span class="line">                ),</span><br><span class="line">                Text(</span><br><span class="line">                  <span class="string">"ClipOval"</span>,</span><br><span class="line">                  textAlign: TextAlign.center,</span><br><span class="line">                ),</span><br><span class="line">             ]</span><br><span class="line">           ),</span><br><span class="line">         ),</span><br><span class="line">       )</span><br><span class="line">     ],</span><br><span class="line">    ),</span><br></pre></td></tr></table></figure>
+<img src="/images/2019-08-13/flutter_study_03.png">
+<h3 id="Button-Widget"><a href="#Button-Widget" class="headerlink" title="Button Widget"></a>Button Widget</h3><blockquote>
+<p>Button Widget 在 Flutter 里是用来负责按钮功能的组件，功能类似于 HTML 的一些 button 标签等等，属于基础组件。</p>
+</blockquote>
+<p>在 Flutter 中 Button 有很多封装好的 Widget 类：FlatButton（扁平化）、RaisedButton（有按下状态）、OutlineButton（有边框）、MaterialButton（Material风格）、RawMaterialButton（没有应用 style 的 Material 风格按钮）、FloatingActionButton（悬浮按钮）、BackButton（返回按钮）、IconButton（Icon 图标）、CloseButton（关闭按钮）、<code>ButtonBar</code>（可以排列放置按钮元素的）等。</p>
+<h4 id="Button-Widget方法及属性"><a href="#Button-Widget方法及属性" class="headerlink" title="Button Widget方法及属性"></a>Button Widget方法及属性</h4><p>以 FlatButton 为例，其常用构造方法和属性为：<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> FlatButton(&#123;</span><br><span class="line">  Key key,</span><br><span class="line">  <span class="comment">// 点击事件</span></span><br><span class="line">  <span class="meta">@required</span> VoidCallback onPressed,</span><br><span class="line">  <span class="comment">// 高亮改变，按下和抬起时都会调用的方法</span></span><br><span class="line">  ValueChanged&lt;<span class="built_in">bool</span>&gt; onHighlightChanged,</span><br><span class="line">  <span class="comment">// 定义按钮的基色，以及按钮的最小尺寸，内部填充和形状的默认值</span></span><br><span class="line">  ButtonTextTheme textTheme,</span><br><span class="line">  <span class="comment">// 按钮文字的颜色</span></span><br><span class="line">  Color textColor,</span><br><span class="line">  <span class="comment">// 按钮禁用时的文字颜色</span></span><br><span class="line">  Color disabledTextColor,</span><br><span class="line">  <span class="comment">// 按钮背景颜色</span></span><br><span class="line">  Color color,</span><br><span class="line">  <span class="comment">// 按钮禁用时的背景颜色</span></span><br><span class="line">  Color disabledColor,</span><br><span class="line">  <span class="comment">// 按钮按下时的背景颜色</span></span><br><span class="line">  Color highlightColor,</span><br><span class="line">  <span class="comment">// 点击时，水波动画中水波的颜色，不要水波纹效果设置透明颜色即可</span></span><br><span class="line">  Color splashColor,</span><br><span class="line">  <span class="comment">// 按钮主题，默认是浅色主题，分为深色和浅色 </span></span><br><span class="line">  Brightness colorBrightness,</span><br><span class="line">  <span class="comment">// 按钮的填充间距</span></span><br><span class="line">  EdgeInsetsGeometry padding,</span><br><span class="line">  <span class="comment">// 外形</span></span><br><span class="line">  ShapeBorder shape,</span><br><span class="line">  Clip clipBehavior = Clip.none,</span><br><span class="line">  MaterialTapTargetSize materialTapTargetSize,</span><br><span class="line">  <span class="comment">// 按钮的内容，里面可以放子元素</span></span><br><span class="line">  <span class="meta">@required</span> Widget child,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p><code>onPressed</code>和<code>child</code>是必须的。 如果没有点击事件，onPressed为 <code>null</code><br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 禁用状态</span></span><br><span class="line">FlatButton(</span><br><span class="line">  child: Text(</span><br><span class="line">    <span class="string">'禁用的Flat按钮'</span>, </span><br><span class="line">  ),</span><br><span class="line">  disabledColor: Colors.grey[<span class="number">300</span>],</span><br><span class="line">  disabledTextColor: Colors.grey,</span><br><span class="line">  onPressed: <span class="keyword">null</span>,</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<h4 id="Button-Widget-实例"><a href="#Button-Widget-实例" class="headerlink" title="Button Widget 实例"></a>Button Widget 实例</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 部分代码</span></span><br><span class="line">body: Container(</span><br><span class="line">  padding: EdgeInsets.all(<span class="number">20</span>),</span><br><span class="line">  child: Column(</span><br><span class="line">    children: &lt;Widget&gt;[</span><br><span class="line">    <span class="comment">//  返回按钮</span></span><br><span class="line">      BackButton(</span><br><span class="line">        color: Colors.blue,</span><br><span class="line">      ),</span><br><span class="line"></span><br><span class="line">    <span class="comment">//  关闭按钮</span></span><br><span class="line">    CloseButton(),</span><br><span class="line"></span><br><span class="line">    <span class="comment">///  flatButton</span></span><br><span class="line">    ButtonBar(</span><br><span class="line">      children: &lt;Widget&gt;[</span><br><span class="line">        <span class="comment">// 正常状态</span></span><br><span class="line">        FlatButton(</span><br><span class="line">          child: Text(</span><br><span class="line">            <span class="string">'一个Flat按钮'</span>, </span><br><span class="line">          ),</span><br><span class="line">          <span class="comment">// 按钮背景色</span></span><br><span class="line">          color: Colors.green,</span><br><span class="line">          <span class="comment">// 按钮文字的颜色</span></span><br><span class="line">          textColor: Colors.white,</span><br><span class="line">          <span class="comment">// textTheme: ButtonTextTheme.primary,</span></span><br><span class="line">          onPressed: () =&gt; &#123;&#125;,</span><br><span class="line">        ),</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 禁用状态</span></span><br><span class="line">        FlatButton(</span><br><span class="line">          child: Text(</span><br><span class="line">            <span class="string">'禁用的Flat按钮'</span>, </span><br><span class="line">          ),</span><br><span class="line">          disabledColor: Colors.grey[<span class="number">300</span>],</span><br><span class="line">          disabledTextColor: Colors.grey,</span><br><span class="line">          onPressed: <span class="keyword">null</span>,</span><br><span class="line">        ),</span><br><span class="line">      ],</span><br><span class="line">    ),</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// MaterialButton</span></span><br><span class="line">    MaterialButton(</span><br><span class="line">      child: Text(<span class="string">'MaterialButton'</span>),</span><br><span class="line">      onPressed: () =&gt; &#123;&#125;,</span><br><span class="line">    ),</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// FloatingActionButton</span></span><br><span class="line">    FloatingActionButton(</span><br><span class="line">      child: Text(<span class="string">'Float'</span>),</span><br><span class="line">      onPressed: () =&gt; &#123;&#125;,</span><br><span class="line">    ),</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// RaisedButton</span></span><br><span class="line">    RaisedButton(</span><br><span class="line">      child: Text(<span class="string">'RaisedButton'</span>),</span><br><span class="line">      onPressed: () =&gt; &#123;&#125;,</span><br><span class="line">    ),</span><br><span class="line"></span><br><span class="line">    <span class="comment">// OutlineButton</span></span><br><span class="line">    OutlineButton(</span><br><span class="line">      child: Text(<span class="string">'OutlineButton'</span>),</span><br><span class="line">      onPressed: () =&gt; &#123;&#125;,</span><br><span class="line">      textColor: Colors.blue,</span><br><span class="line">      borderSide: BorderSide(</span><br><span class="line">        color: Colors.blue,</span><br><span class="line">      ),</span><br><span class="line">    ),</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// OutlineButton + icon</span></span><br><span class="line">    OutlineButton.icon(</span><br><span class="line">      icon: Icon(Icons.add_to_photos, size: <span class="number">18</span>),</span><br><span class="line">      label: Text(<span class="string">'带icon的按钮'</span>),</span><br><span class="line">      onPressed: () =&gt; &#123;&#125;,</span><br><span class="line">    ),</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// IconButton</span></span><br><span class="line">    IconButton(</span><br><span class="line">      icon: Icon(Icons.add),</span><br><span class="line">      onPressed: () =&gt; &#123;&#125;,</span><br><span class="line">      color: Colors.green, <span class="comment">// icon的颜色</span></span><br><span class="line">      highlightColor: Colors.blue,  <span class="comment">// press时，iconbutton的背景色</span></span><br><span class="line">      tooltip: <span class="string">'add iconbutton'</span>, <span class="comment">// press时的提示</span></span><br><span class="line">    ),</span><br><span class="line">    Text(<span class="string">'IconButton'</span>),</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    ],</span><br><span class="line">  ),</span><br><span class="line">),</span><br></pre></td></tr></table></figure>
+<img src="/images/2019-08-13/flutter_study_04.png">
+<hr>
+<p><a href="https://github.com/SeptemberMaples/study-section/tree/flutter_study/flutter_study/lib/flutter_03" target="_blank" rel="noopener">相关代码</a></p>
+<hr>
+<p>参考：</p>
+<ul>
+<li><a href="https://api.flutter.dev/flutter/widgets/Text-class.html" target="_blank" rel="noopener">flutter官网</a></li>
+<li>【Flutter—从入门到实践(by Ray)】学习笔记</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/flutter/" rel="tag"># flutter</a>
+          
+            <a href="/tags/widget/" rel="tag"># widget</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/12/flutter-widget-introduce/" rel="next" title="Flutter学习-02：widget介绍">
+                <i class="fa fa-chevron-left"></i> Flutter学习-02：widget介绍
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/14/flutter-basic-widgets-2/" rel="prev" title="Flutter学习-04：基础widgets - AppBar、AlertDialog、Icon">
+                Flutter学习-04：基础widgets - AppBar、AlertDialog、Icon <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div id="vcomments"></div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="九月枫林" />
+            
+              <p class="site-author-name" itemprop="name">九月枫林</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/SeptemberMaples" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:jiuyuefenglin@gmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/jiuyuefenglin" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.zhihu.com/people/yangyong222" target="_blank" title="知乎">
+                    
+                      <i class="fa fa-fw fa-globe"></i>知乎</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Text-Widget"><span class="nav-number">1.</span> <span class="nav-text">Text Widget</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Text构造方法及属性"><span class="nav-number">1.1.</span> <span class="nav-text">Text构造方法及属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Text-rich-构造方法及属性"><span class="nav-number">1.2.</span> <span class="nav-text">Text.rich()构造方法及属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Text-widget-实例"><span class="nav-number">1.3.</span> <span class="nav-text">Text widget 实例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Image-Widget"><span class="nav-number">2.</span> <span class="nav-text">Image Widget</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Image-Widget方法及属性"><span class="nav-number">2.1.</span> <span class="nav-text">Image Widget方法及属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#colorBlendMode-混合模式"><span class="nav-number">2.2.</span> <span class="nav-text">colorBlendMode 混合模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fit-缩放显示模式"><span class="nav-number">2.3.</span> <span class="nav-text">fit 缩放显示模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Image-Widget-实例"><span class="nav-number">2.4.</span> <span class="nav-text">Image Widget 实例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Button-Widget"><span class="nav-number">3.</span> <span class="nav-text">Button Widget</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Button-Widget方法及属性"><span class="nav-number">3.1.</span> <span class="nav-text">Button Widget方法及属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Button-Widget-实例"><span class="nav-number">3.2.</span> <span class="nav-text">Button Widget 实例</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九月枫林</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine@1.1.4/dist/Valine.min.js"></script>
+  <script type="text/javascript">
+    new Valine({
+        av: AV,
+        el: '#vcomments' ,
+        verify: true,
+        notify: false,
+        app_id: 'fyGrIsuAaAKmLUl8jRfcPcda-gzGzoHsz',
+        app_key: 'tAseGFsYxXWyNK8EIOLHxmlz',
+        placeholder: '说点什么吧~'
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("fyGrIsuAaAKmLUl8jRfcPcda-gzGzoHsz", "tAseGFsYxXWyNK8EIOLHxmlz");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.3"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.3"></script>
+
+
+  
+
+</body>
+</html>

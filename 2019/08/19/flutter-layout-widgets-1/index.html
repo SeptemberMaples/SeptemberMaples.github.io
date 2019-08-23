@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="flutter,widget," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="布局指的就是各元素、子元素的排列形式，如水平排列、垂直排列、弹性布局、层叠顺序(z-index)等等。在Android、iOS、前端都有相应的写法。Flutter中的基础布局主要有，Row 和 Column 用于线性布局（横向或者纵向排列子元素）；Flex 和 Expanded 用于弹性布局（按照比例分配子元素所占大小空间）；Stack 和 IndexedStack 用于层叠布局（也可以叫帧布局，">
+<meta name="keywords" content="flutter,widget">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flutter学习-06：基础布局widgets">
+<meta property="og:url" content="http://yangyong.xyz/2019/08/19/flutter-layout-widgets-1/index.html">
+<meta property="og:site_name" content="九月枫林">
+<meta property="og:description" content="布局指的就是各元素、子元素的排列形式，如水平排列、垂直排列、弹性布局、层叠顺序(z-index)等等。在Android、iOS、前端都有相应的写法。Flutter中的基础布局主要有，Row 和 Column 用于线性布局（横向或者纵向排列子元素）；Flex 和 Expanded 用于弹性布局（按照比例分配子元素所占大小空间）；Stack 和 IndexedStack 用于层叠布局（也可以叫帧布局，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yangyong.xyz/images/2019-08-19/flutter_study_01.png">
+<meta property="og:image" content="http://yangyong.xyz/images/2019-08-19/flutter_study_02.png">
+<meta property="og:image" content="http://yangyong.xyz/images/2019-08-19/flutter_study_03.png">
+<meta property="og:image" content="http://yangyong.xyz/images/2019-08-19/flutter_study_04.png">
+<meta property="og:updated_time" content="2019-08-23T14:30:21.166Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Flutter学习-06：基础布局widgets">
+<meta name="twitter:description" content="布局指的就是各元素、子元素的排列形式，如水平排列、垂直排列、弹性布局、层叠顺序(z-index)等等。在Android、iOS、前端都有相应的写法。Flutter中的基础布局主要有，Row 和 Column 用于线性布局（横向或者纵向排列子元素）；Flex 和 Expanded 用于弹性布局（按照比例分配子元素所占大小空间）；Stack 和 IndexedStack 用于层叠布局（也可以叫帧布局，">
+<meta name="twitter:image" content="http://yangyong.xyz/images/2019-08-19/flutter_study_01.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'S8WI7CQ2RG',
+      apiKey: '1e5d4e0537d3136202da11c5c5b766b9',
+      indexName: 'blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键词","hits_empty":"没有找到与 ${query} 相关的内容","hits_stats":"${hits}条相关记录，共耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yangyong.xyz/2019/08/19/flutter-layout-widgets-1/"/>
+
+
+
+
+
+  <title>Flutter学习-06：基础布局widgets | 九月枫林</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九月枫林</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Simon Young</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yangyong.xyz/2019/08/19/flutter-layout-widgets-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九月枫林">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九月枫林">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Flutter学习-06：基础布局widgets</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-19T11:47:04+08:00">
+                2019-08-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Flutter/" itemprop="url" rel="index">
+                    <span itemprop="name">Flutter</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/08/19/flutter-layout-widgets-1/" class="leancloud_visitors" data-flag-title="Flutter学习-06：基础布局widgets">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>布局指的就是各元素、子元素的排列形式，如水平排列、垂直排列、弹性布局、层叠顺序(z-index)等等。在Android、iOS、前端都有相应的写法。Flutter中的基础布局主要有，<code>Row</code> 和 <code>Column</code> 用于线性布局（横向或者纵向排列子元素）；<code>Flex</code> 和 <code>Expanded</code> 用于弹性布局（按照比例分配子元素所占大小空间）；<code>Stack</code> 和 <code>IndexedStack</code> 用于层叠布局（也可以叫帧布局，也就是布局里的元素有前后层级堆叠在一起的）。</p>
+<a id="more"></a>
+<p>前面已经学习过，布局Widgets有单一子元素和多子元素之分，详情可看<a href="/2019/08/12/flutter-widget-introduce/">Widgets相关介绍</a></p>
+<h3 id="Row-Widget"><a href="#Row-Widget" class="headerlink" title="Row Widget"></a>Row Widget</h3><p>Row 布局组件用来做<strong>水平横向布局</strong>使用，里面的 children 子元素按照水平方向进行排列。</p>
+<p>继承关系为： Object &gt; Diagnosticable &gt; DiagnosticableTree &gt; Widget &gt; RenderObjectWidget &gt; MultiChildRenderObjectWidget &gt; Flex &gt; Row</p>
+<p>可以看出 Row 是 Flex 的拓展子类，也是多子元素的一个组件之一（内部可以包含多个子元素）。</p>
+<p>Row基本用法示例：<br><img src="/images/2019-08-19/flutter_study_01.png"></p>
+<h4 id="Row的构造方法"><a href="#Row的构造方法" class="headerlink" title="Row的构造方法"></a>Row的构造方法</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Row(&#123;</span><br><span class="line">  Key key,</span><br><span class="line">  <span class="comment">// 主轴方向上的对齐方式（Row的主轴是横向轴）</span></span><br><span class="line">  MainAxisAlignment mainAxisAlignment = MainAxisAlignment.start,</span><br><span class="line">  <span class="comment">// 在主轴方向（Row的主轴是横向轴）占有空间的值，默认是max</span></span><br><span class="line">  MainAxisSize mainAxisSize = MainAxisSize.max,</span><br><span class="line">  <span class="comment">// 在交叉轴方向(Row是纵向轴)的对齐方式，Row的高度等于子元素中最高的子元素高度</span></span><br><span class="line">  CrossAxisAlignment crossAxisAlignment = CrossAxisAlignment.center,</span><br><span class="line">  <span class="comment">// 水平方向子元素的排列方向：从左到右排列还是反向</span></span><br><span class="line">  TextDirection textDirection,</span><br><span class="line">  <span class="comment">// 表示纵轴（垂直）的对齐排列方向，默认是VerticalDirection.down，表示从上到下。这个参数一般用于Column组件里</span></span><br><span class="line">  VerticalDirection verticalDirection = VerticalDirection.down,</span><br><span class="line">  <span class="comment">// 字符对齐基线方式</span></span><br><span class="line">  TextBaseline textBaseline,</span><br><span class="line">  <span class="comment">// 子元素集合</span></span><br><span class="line">  <span class="built_in">List</span>&lt;Widget&gt; children = <span class="keyword">const</span> &lt;Widget&gt;[],</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>因为<code>Row</code>是<code>Flex Widget</code>的扩展子类，Flex可以结合前端HTML 中的 Flex 弹性盒子布局来理解。有子元素的水平布局方式(Row 是横向轴为主轴)和垂直布局方式(Row 是纵向轴)。</p>
+<p><strong> MainAxisAlignment（主轴属性：主轴方向上的对齐方式，Row 是横向轴为主轴） </strong><br>相当于 CSS3 flex的 <code>justify-content</code>。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> MainAxisAlignment &#123;</span><br><span class="line">  <span class="comment">// 按照主轴起点对齐，例如：按照靠近最左侧子元素对齐</span></span><br><span class="line">  start,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 将子元素放置在主轴的末尾，按照末尾对齐</span></span><br><span class="line">  end,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 子元素放置在主轴中心对齐</span></span><br><span class="line">  center,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 将主轴方向上的空白区域均分，使得子元素之间的空白区域相等，首尾子元素都靠近首尾，没有间隙。有点类似于两端对齐</span></span><br><span class="line">  spaceBetween,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 将主轴方向上的空白区域均分，使得子元素之间的空白区域相等，但是首尾子元素的空白区域为1/2</span></span><br><span class="line">  spaceAround,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 将主轴方向上的空白区域均分，使得子元素之间的空白区域相等，包括首尾子元素</span></span><br><span class="line">  spaceEvenly,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong> CrossAxisAlignment（交叉属性：在交叉轴方向的对齐方式，Row 是纵向轴。Row 的高度等于子元素中最高的子元素高度） </strong><br>相当于 CSS3 flex的 <code>align-items</code>。<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> CrossAxisAlignment &#123;</span><br><span class="line">  <span class="comment">// 子元素在交叉轴上起点处展示</span></span><br><span class="line">  start,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 子元素在交叉轴上末尾处展示</span></span><br><span class="line">  end,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 子元素在交叉轴上居中展示</span></span><br><span class="line">  center,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 让子元素填满交叉轴方向</span></span><br><span class="line">  stretch,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 在交叉轴方向，使得子元素按照baseline对齐</span></span><br><span class="line">  baseline,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong> MainAxisSize（在主轴方向子元素占有空间的方式，Row 的主轴是横向轴。默认是 max） </strong><br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> MainAxisSize &#123;</span><br><span class="line">  <span class="comment">// 根据传入的布局约束条件，最大化主轴方向占用可用空间，也就是尽可能充满可用宽度</span></span><br><span class="line">  max,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 与max相反，是最小化占用主轴方向的可用空间</span></span><br><span class="line">  min,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Row-Widget-实例"><a href="#Row-Widget-实例" class="headerlink" title="Row Widget 实例"></a>Row Widget 实例</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line">Column(</span><br><span class="line">  children: &lt;Widget&gt;[</span><br><span class="line">    Text(<span class="string">'Row默认水平排列'</span>, textAlign: TextAlign.left,),</span><br><span class="line">    <span class="comment">/// Row默认水平排列</span></span><br><span class="line">    Row(</span><br><span class="line">      children: &lt;Widget&gt;[</span><br><span class="line">        RaisedButton(</span><br><span class="line">          child: Text(<span class="string">'Button'</span>),</span><br><span class="line">          onPressed: ()&#123;&#125;,</span><br><span class="line">        ),</span><br><span class="line">        RaisedButton(</span><br><span class="line">          child: Text(<span class="string">'Button2'</span>),</span><br><span class="line">          color: Colors.greenAccent,</span><br><span class="line">          onPressed: ()&#123;&#125;,</span><br><span class="line">        ),</span><br><span class="line">        Text(<span class="string">'Text Widget'</span>)</span><br><span class="line">      ],</span><br><span class="line">    ),</span><br><span class="line">    SizedBox(</span><br><span class="line">      height: <span class="number">20</span>,</span><br><span class="line">    ),</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// Row 水平方向居中</span></span><br><span class="line">    Text(<span class="string">'Row 水平方向居中'</span>),</span><br><span class="line">    Row(</span><br><span class="line">      <span class="comment">// Row的主轴是横向轴</span></span><br><span class="line">      mainAxisAlignment: MainAxisAlignment.center,</span><br><span class="line">      children: &lt;Widget&gt;[</span><br><span class="line">        RaisedButton(</span><br><span class="line">          child: Text(<span class="string">'Button'</span>),</span><br><span class="line">          onPressed: ()&#123;&#125;,</span><br><span class="line">        ),</span><br><span class="line">        RaisedButton(</span><br><span class="line">          child: Text(<span class="string">'Button2'</span>),</span><br><span class="line">          color: Colors.greenAccent,</span><br><span class="line">          onPressed: ()&#123;&#125;,</span><br><span class="line">        ),</span><br><span class="line">        Text(<span class="string">'Text Widget'</span>)</span><br><span class="line">      ],</span><br><span class="line">    ),</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// Row 水平方向布局-spaceAround</span></span><br><span class="line">    Text(<span class="string">'将主轴方向上的空白区域均分，使得子元素之间的空白区域相等'</span>),</span><br><span class="line">    Row(</span><br><span class="line">      <span class="comment">// Row的主轴是横向轴</span></span><br><span class="line">      mainAxisAlignment: MainAxisAlignment.spaceAround,</span><br><span class="line">      children: &lt;Widget&gt;[</span><br><span class="line">        RaisedButton(</span><br><span class="line">          child: Text(<span class="string">'Button'</span>),</span><br><span class="line">          onPressed: ()&#123;&#125;,</span><br><span class="line">        ),</span><br><span class="line">        RaisedButton(</span><br><span class="line">          child: Text(<span class="string">'Button2'</span>),</span><br><span class="line">          color: Colors.greenAccent,</span><br><span class="line">          onPressed: ()&#123;&#125;,</span><br><span class="line">        ),</span><br><span class="line">        Text(<span class="string">'Text Widget'</span>)</span><br><span class="line">      ],</span><br><span class="line">    ),</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// Row 垂直方向的排列</span></span><br><span class="line">    SizedBox(</span><br><span class="line">      height: <span class="number">20</span>,</span><br><span class="line">    ),</span><br><span class="line">    Text(<span class="string">'Row 交叉属性：在交叉轴方向的对齐方式，Row 是纵向轴, 垂直方向的排列'</span>),</span><br><span class="line">    Text(<span class="string">'Row 交叉属性：start'</span>),</span><br><span class="line">    SizedBox(</span><br><span class="line">      height: <span class="number">20</span>,</span><br><span class="line">    ),</span><br><span class="line">    Row(</span><br><span class="line">      crossAxisAlignment: CrossAxisAlignment.start,</span><br><span class="line">      children: &lt;Widget&gt;[</span><br><span class="line">        <span class="comment">// Expanded 响应式布局</span></span><br><span class="line">        Expanded(</span><br><span class="line">          child: (</span><br><span class="line">            Text(<span class="string">'The Row widget does not scroll (and in general it is considered an error to have more children in a Row than will fit in the available room). If you have a line of widgets and want them to be able to scroll if there is insufficient room, consider using a ListView. '</span>)</span><br><span class="line">          )</span><br><span class="line">        ),</span><br><span class="line">        RaisedButton(</span><br><span class="line">          child: Text(<span class="string">'button'</span>),</span><br><span class="line">          onPressed: () &#123;&#125;,</span><br><span class="line">        )</span><br><span class="line">      ],</span><br><span class="line">    ),</span><br><span class="line">    </span><br><span class="line">  ],</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<img src="/images/2019-08-19/flutter_study_02.png">
+<hr>
+<h3 id="Column-Widget"><a href="#Column-Widget" class="headerlink" title="Column Widget"></a>Column Widget</h3><p>Column 是<strong>纵向排列子元素</strong>，可以对比着 Row 学习。</p>
+<p>继承关系为： Object &gt; Diagnosticable &gt; DiagnosticableTree &gt; Widget &gt; RenderObjectWidget &gt; MultiChildRenderObjectWidget &gt; Flex &gt; Column</p>
+<h4 id="Column-构造方法"><a href="#Column-构造方法" class="headerlink" title="Column 构造方法"></a>Column 构造方法</h4><p>构造方法是一致的，只不过主轴和交叉轴和 Row 是相反的。</p>
+<hr>
+<h3 id="Flex-和-Expanded-Widget"><a href="#Flex-和-Expanded-Widget" class="headerlink" title="Flex 和 Expanded Widget"></a>Flex 和 Expanded Widget</h3><p>Flex 组件是 Row 和 Column 的父类，主要用于<strong>弹性布局</strong>，类似于HTML 中的 Flex 弹性盒子布局，可以按照一定比例进行分类布局空间。</p>
+<p>Flex 继承自 MultiChildRenderObjectWidget，Flex 也是多子元素的一个组件之一（内部可以包含多个子元素）。</p>
+<p>Flex 一般和 Expanded 搭配使用，<code>Expanded</code>组件从名字就可以看出它的特点，就是让<strong>子元素扩展占用 Flex 的剩余空间</strong>。</p>
+<h4 id="Flex-构造方法"><a href="#Flex-构造方法" class="headerlink" title="Flex 构造方法"></a>Flex 构造方法</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Flex(&#123;</span><br><span class="line">  Key key,</span><br><span class="line">  <span class="comment">// 子元素排列方向：横向还是纵向。必须项</span></span><br><span class="line">  <span class="meta">@required</span> Axis direction, <span class="comment">// Axis.vertical / Axis.horizontal</span></span><br><span class="line">  MainAxisAlignment mainAxisAlignment: MainAxisAlignment.start,</span><br><span class="line">  MainAxisSize mainAxisSize: MainAxisSize.max,</span><br><span class="line">  CrossAxisAlignment crossAxisAlignment: CrossAxisAlignment.center,</span><br><span class="line">  TextDirection textDirection,</span><br><span class="line">  VerticalDirection verticalDirection: VerticalDirection.down,</span><br><span class="line">  TextBaseline textBaseline,</span><br><span class="line">  <span class="built_in">List</span>&lt;Widget&gt; children: <span class="keyword">const</span> []</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><code>Flex</code>的必填属性 <code>direction</code>表示子元素排列方向，有横向（Axis.horizontal）和纵向（Axis.vertical），分别对应子类Row 和 Column。</p>
+<p> Flex 主要是和 Expanded 搭配使用</p>
+<h4 id="Expanded-构造方法"><a href="#Expanded-构造方法" class="headerlink" title="Expanded 构造方法"></a>Expanded 构造方法</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Expanded(&#123;</span><br><span class="line">  Key key, </span><br><span class="line">  <span class="comment">// 占用空间比重、权重</span></span><br><span class="line">  <span class="built_in">int</span> flex: <span class="number">1</span>, </span><br><span class="line">  <span class="comment">// 子元素, 必须项</span></span><br><span class="line">  <span class="meta">@required</span> Widget child </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="Expanded-实例"><a href="#Expanded-实例" class="headerlink" title="Expanded 实例"></a>Expanded 实例</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Flex</span></span><br><span class="line">child: Flex(</span><br><span class="line">  direction: Axis.horizontal, <span class="comment">// Row</span></span><br><span class="line">  children: &lt;Widget&gt;[</span><br><span class="line">    Expanded(</span><br><span class="line">      flex: <span class="number">2</span>,</span><br><span class="line">      child: Container(</span><br><span class="line">        color: Colors.redAccent,</span><br><span class="line">        child: Text(</span><br><span class="line">          <span class="string">'Text1: 2/5'</span></span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    ),</span><br><span class="line">    Expanded(</span><br><span class="line">      flex: <span class="number">1</span>,</span><br><span class="line">      child: Container(</span><br><span class="line">        color: Colors.blueAccent,</span><br><span class="line">        child: Text(<span class="string">'Text2'</span>),</span><br><span class="line">      )</span><br><span class="line">    ),</span><br><span class="line">    Expanded(</span><br><span class="line">      flex: <span class="number">2</span>,</span><br><span class="line">      child: Container(</span><br><span class="line">        color: Colors.greenAccent,</span><br><span class="line">        child: Text(<span class="string">'Text3: 2/5'</span>),</span><br><span class="line">      ),</span><br><span class="line">    ),</span><br><span class="line">  ],</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<img src="/images/2019-08-19/flutter_study_03.png">
+<hr>
+<h3 id="Stack-和-IndexedStack"><a href="#Stack-和-IndexedStack" class="headerlink" title="Stack 和 IndexedStack"></a>Stack 和 IndexedStack</h3><p>Stack 和 IndexStack 都是<strong>层叠布局方式</strong>，内部子元素是有层级堆起来的。</p>
+<p>Stack 继承自 MultiChildRenderObjectWidget，Stack 也是<strong>多子元素</strong>的一个组件之一（内部可以包含多个子元素）。</p>
+<p>而 IndexedStack 继承自 Stack，扩展了 Stack的一些特性。它的作用是显示第 index 个子元素，其他子元素都是不可见的。所以 <strong>IndexedStack 的尺寸永远是跟最大的子元素尺寸一致</strong>。</p>
+<p>Stack 的布局行为，是根据子元素是 positioned 还是 non-positioned 来区分的：</p>
+<ul>
+<li>对于 <code>positioned</code> 的子元素，它们的位置会根据所设置的 top、bottom、right 或 left 属性来确定，这几个值都是相对于 Stack 的左上角；</li>
+<li>对于 <code>non-positioned</code> 的子元素，它们会根据 Stack 的 <code>aligment</code> 来设置位置。</li>
+</ul>
+<p><strong>Stack 布局的子元素层级堆叠顺序：最先布局绘制的子元素在最底层，越后绘制的越在顶层。</strong>类似于 Web 中的 z-index。</p>
+<h4 id="Stack-的构造方法"><a href="#Stack-的构造方法" class="headerlink" title="Stack 的构造方法"></a>Stack 的构造方法</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Stack(&#123;</span><br><span class="line">  Key key,</span><br><span class="line">  <span class="comment">// 对齐方式，默认是左上角（topStart）</span></span><br><span class="line">  AlignmentGeometry alignment: AlignmentDirectional.topStart,</span><br><span class="line">  <span class="comment">// 对齐方向</span></span><br><span class="line">  TextDirection textDirection,</span><br><span class="line">  <span class="comment">// 定义如何设置无定位子元素尺寸，默认为loose</span></span><br><span class="line">  StackFit fit: StackFit.loose,</span><br><span class="line">  <span class="comment">// 超过的部分子元素处理方式，默认为 clip</span></span><br><span class="line">  Overflow overflow: Overflow.clip,</span><br><span class="line">  <span class="comment">// 子元素</span></span><br><span class="line">  <span class="built_in">List</span>&lt;Widget&gt; children: <span class="keyword">const</span> []</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><strong><code>alignment</code>属性：</strong><br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 左上角</span></span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">const</span> Alignment topLeft = Alignment(<span class="number">-1.0</span>, <span class="number">-1.0</span>);</span><br><span class="line">  <span class="comment">// 主轴顶部对齐，交叉轴居中</span></span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">const</span> Alignment topCenter = Alignment(<span class="number">0.0</span>, <span class="number">-1.0</span>);</span><br><span class="line">  <span class="comment">// 主轴顶部对齐，交叉轴偏右</span></span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">const</span> Alignment topRight = Alignment(<span class="number">1.0</span>, <span class="number">-1.0</span>);</span><br><span class="line">  <span class="comment">// 主轴居中，交叉轴偏左</span></span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">const</span> Alignment centerLeft = Alignment(<span class="number">-1.0</span>, <span class="number">0.0</span>);</span><br><span class="line">  <span class="comment">// 居中</span></span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">const</span> Alignment center = Alignment(<span class="number">0.0</span>, <span class="number">0.0</span>);</span><br><span class="line">  <span class="comment">// 主轴居中，交叉轴偏右</span></span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">const</span> Alignment centerRight = Alignment(<span class="number">1.0</span>, <span class="number">0.0</span>);</span><br><span class="line">  <span class="comment">// 主轴底部对齐，交叉轴偏左</span></span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">const</span> Alignment bottomLeft = Alignment(<span class="number">-1.0</span>, <span class="number">1.0</span>);</span><br><span class="line">  <span class="comment">// 主轴底部对齐，交叉轴居中</span></span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">const</span> Alignment bottomCenter = Alignment(<span class="number">0.0</span>, <span class="number">1.0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 主轴底部对齐，交叉轴偏右</span></span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">const</span> Alignment bottomRight = Alignment(<span class="number">1.0</span>, <span class="number">1.0</span>);</span><br></pre></td></tr></table></figure></p>
+<p><strong><code>fit</code>属性：</strong><br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> StackFit &#123;</span><br><span class="line">  <span class="comment">// 子元素宽松的取值，可以从min到max的尺寸</span></span><br><span class="line">  loose,</span><br><span class="line">  <span class="comment">// 子元素尽可能的占用剩余空间，取max尺寸</span></span><br><span class="line">  expand,</span><br><span class="line">  <span class="comment">// 不改变子元素的约束条件</span></span><br><span class="line">  passthrough,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong><code>overflow</code> 属性：</strong><br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Overflow &#123;</span><br><span class="line">  <span class="comment">// 超出部分不会被裁剪，正常显示</span></span><br><span class="line">  visible,</span><br><span class="line">  <span class="comment">// 超出部分会被裁剪</span></span><br><span class="line">  clip,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="IndexedStack-构造方法"><a href="#IndexedStack-构造方法" class="headerlink" title="IndexedStack 构造方法"></a>IndexedStack 构造方法</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">IndexedStack(&#123;</span><br><span class="line">  Key key,</span><br><span class="line">  AlignmentGeometry alignment = AlignmentDirectional.topStart,</span><br><span class="line">  TextDirection textDirection,</span><br><span class="line">  StackFit sizing = StackFit.loose,</span><br><span class="line">  <span class="comment">// 多了一个索引，索引的这个元素显示，其他元素隐藏</span></span><br><span class="line">  <span class="keyword">this</span>.index = <span class="number">0</span>,</span><br><span class="line">  <span class="comment">// 子元素</span></span><br><span class="line">  <span class="built_in">List</span>&lt;Widget&gt; children = <span class="keyword">const</span> &lt;Widget&gt;[],</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="Stack-和-IndexedStack-实例"><a href="#Stack-和-IndexedStack-实例" class="headerlink" title="Stack 和 IndexedStack 实例"></a>Stack 和 IndexedStack 实例</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">Column(</span><br><span class="line">  children: &lt;Widget&gt;[</span><br><span class="line">    <span class="comment">// Stack 层叠布局</span></span><br><span class="line">    Stack(</span><br><span class="line">      alignment: AlignmentDirectional.topCenter,</span><br><span class="line">      children: &lt;Widget&gt;[</span><br><span class="line">        Container(</span><br><span class="line">          width: <span class="number">300</span>,</span><br><span class="line">          height: <span class="number">300</span>,</span><br><span class="line">          color: Colors.grey,</span><br><span class="line">        ),</span><br><span class="line">        Container(</span><br><span class="line">          width: <span class="number">200</span>,</span><br><span class="line">          height: <span class="number">200</span>,</span><br><span class="line">          color: Colors.teal,</span><br><span class="line">        ),</span><br><span class="line">        Container(</span><br><span class="line">          width: <span class="number">100</span>,</span><br><span class="line">          height: <span class="number">100</span>,</span><br><span class="line">          color: Colors.blue,</span><br><span class="line">        ),</span><br><span class="line">        Text(</span><br><span class="line">          <span class="string">"Stack"</span>,</span><br><span class="line">          style: TextStyle(color: Colors.white),</span><br><span class="line">        ),</span><br><span class="line">      ],</span><br><span class="line">    ),</span><br><span class="line"></span><br><span class="line">    SizedBox(</span><br><span class="line">      height: <span class="number">20</span>,</span><br><span class="line">    ),</span><br><span class="line">    <span class="comment">// IndexedStack层叠布局</span></span><br><span class="line">    IndexedStack(</span><br><span class="line">      <span class="comment">// 指定显示的子元素序号，其余子元素隐藏</span></span><br><span class="line">      index: <span class="number">2</span>,</span><br><span class="line">      children: &lt;Widget&gt;[</span><br><span class="line">        Container(</span><br><span class="line">          width: <span class="number">300</span>,</span><br><span class="line">          height: <span class="number">300</span>,</span><br><span class="line">          color: Colors.grey,</span><br><span class="line">        ),</span><br><span class="line">        Container(</span><br><span class="line">          width: <span class="number">200</span>,</span><br><span class="line">          height: <span class="number">200</span>,</span><br><span class="line">          color: Colors.teal,</span><br><span class="line">        ),</span><br><span class="line">        Container(</span><br><span class="line">          width: <span class="number">100</span>,</span><br><span class="line">          height: <span class="number">100</span>,</span><br><span class="line">          color: Colors.blue,</span><br><span class="line">        ),</span><br><span class="line">        Text(</span><br><span class="line">          <span class="string">"Stack"</span>,</span><br><span class="line">          style: TextStyle(color: Colors.white),</span><br><span class="line">        ),</span><br><span class="line">      ],</span><br><span class="line">    )</span><br><span class="line">  ],</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<img src="/images/2019-08-19/flutter_study_04.png">
+<hr>
+<p><a href="https://github.com/SeptemberMaples/study-section/tree/flutter_study/flutter_study/lib/flutter_06" target="_blank" rel="noopener">相关代码</a></p>
+<hr>
+<p>参考：</p>
+<ul>
+<li><a href="https://api.flutter.dev/flutter/widgets/Stack-class.html" target="_blank" rel="noopener">flutter官网</a></li>
+<li>【Flutter—从入门到实践(by Ray)】学习笔记</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/flutter/" rel="tag"># flutter</a>
+          
+            <a href="/tags/widget/" rel="tag"># widget</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/15/flutter-basic-widget-3/" rel="next" title="Flutter学习-05：基础widgets - Form 表单">
+                <i class="fa fa-chevron-left"></i> Flutter学习-05：基础widgets - Form 表单
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/20/flutter-layout-widgets-2/" rel="prev" title="flutter学习-07：流式布局widgets - Wrap、Flow">
+                flutter学习-07：流式布局widgets - Wrap、Flow <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div id="vcomments"></div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="九月枫林" />
+            
+              <p class="site-author-name" itemprop="name">九月枫林</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/SeptemberMaples" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:jiuyuefenglin@gmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/jiuyuefenglin" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.zhihu.com/people/yangyong222" target="_blank" title="知乎">
+                    
+                      <i class="fa fa-fw fa-globe"></i>知乎</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Row-Widget"><span class="nav-number">1.</span> <span class="nav-text">Row Widget</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Row的构造方法"><span class="nav-number">1.1.</span> <span class="nav-text">Row的构造方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Row-Widget-实例"><span class="nav-number">1.2.</span> <span class="nav-text">Row Widget 实例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Column-Widget"><span class="nav-number">2.</span> <span class="nav-text">Column Widget</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Column-构造方法"><span class="nav-number">2.1.</span> <span class="nav-text">Column 构造方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flex-和-Expanded-Widget"><span class="nav-number">3.</span> <span class="nav-text">Flex 和 Expanded Widget</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Flex-构造方法"><span class="nav-number">3.1.</span> <span class="nav-text">Flex 构造方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Expanded-构造方法"><span class="nav-number">3.2.</span> <span class="nav-text">Expanded 构造方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Expanded-实例"><span class="nav-number">3.3.</span> <span class="nav-text">Expanded 实例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stack-和-IndexedStack"><span class="nav-number">4.</span> <span class="nav-text">Stack 和 IndexedStack</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Stack-的构造方法"><span class="nav-number">4.1.</span> <span class="nav-text">Stack 的构造方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IndexedStack-构造方法"><span class="nav-number">4.2.</span> <span class="nav-text">IndexedStack 构造方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Stack-和-IndexedStack-实例"><span class="nav-number">4.3.</span> <span class="nav-text">Stack 和 IndexedStack 实例</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九月枫林</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine@1.1.4/dist/Valine.min.js"></script>
+  <script type="text/javascript">
+    new Valine({
+        av: AV,
+        el: '#vcomments' ,
+        verify: true,
+        notify: false,
+        app_id: 'fyGrIsuAaAKmLUl8jRfcPcda-gzGzoHsz',
+        app_key: 'tAseGFsYxXWyNK8EIOLHxmlz',
+        placeholder: '说点什么吧~'
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("fyGrIsuAaAKmLUl8jRfcPcda-gzGzoHsz", "tAseGFsYxXWyNK8EIOLHxmlz");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.3"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.3"></script>
+
+
+  
+
+</body>
+</html>

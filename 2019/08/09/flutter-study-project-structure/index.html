@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="flutter," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="如果你已经对Dart语言有了了解，并按官网配置了Flutter本地开发环境，然后就可以本地建一个Flutter项目，愉快地开始学习了。  新建项目我用 vs code 来开发，需要安装 Dart和Flutter两个扩展插件。 然后调出命令面板(ctrl/command+shift+p)，输入flutter，选择新建项目，输入项目名后，会自动初始化一个新项目。">
+<meta name="keywords" content="flutter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flutter学习-01：项目结构及配置文件">
+<meta property="og:url" content="http://yangyong.xyz/2019/08/09/flutter-study-project-structure/index.html">
+<meta property="og:site_name" content="九月枫林">
+<meta property="og:description" content="如果你已经对Dart语言有了了解，并按官网配置了Flutter本地开发环境，然后就可以本地建一个Flutter项目，愉快地开始学习了。  新建项目我用 vs code 来开发，需要安装 Dart和Flutter两个扩展插件。 然后调出命令面板(ctrl/command+shift+p)，输入flutter，选择新建项目，输入项目名后，会自动初始化一个新项目。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yangyong.xyz/images/2019-08-09/flutter_study_01.jpg">
+<meta property="og:image" content="http://yangyong.xyz/images/2019-08-09/flutter_study_02.png">
+<meta property="og:image" content="http://yangyong.xyz/images/2019-08-09/flutter_study_03.png">
+<meta property="og:image" content="http://yangyong.xyz/images/2019-08-09/flutter_study_04.png">
+<meta property="og:updated_time" content="2019-08-15T15:18:59.604Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Flutter学习-01：项目结构及配置文件">
+<meta name="twitter:description" content="如果你已经对Dart语言有了了解，并按官网配置了Flutter本地开发环境，然后就可以本地建一个Flutter项目，愉快地开始学习了。  新建项目我用 vs code 来开发，需要安装 Dart和Flutter两个扩展插件。 然后调出命令面板(ctrl/command+shift+p)，输入flutter，选择新建项目，输入项目名后，会自动初始化一个新项目。">
+<meta name="twitter:image" content="http://yangyong.xyz/images/2019-08-09/flutter_study_01.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'S8WI7CQ2RG',
+      apiKey: '1e5d4e0537d3136202da11c5c5b766b9',
+      indexName: 'blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键词","hits_empty":"没有找到与 ${query} 相关的内容","hits_stats":"${hits}条相关记录，共耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yangyong.xyz/2019/08/09/flutter-study-project-structure/"/>
+
+
+
+
+
+  <title>Flutter学习-01：项目结构及配置文件 | 九月枫林</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九月枫林</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Simon Young</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yangyong.xyz/2019/08/09/flutter-study-project-structure/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九月枫林">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九月枫林">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Flutter学习-01：项目结构及配置文件</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-09T11:26:48+08:00">
+                2019-08-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Flutter/" itemprop="url" rel="index">
+                    <span itemprop="name">Flutter</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/08/09/flutter-study-project-structure/" class="leancloud_visitors" data-flag-title="Flutter学习-01：项目结构及配置文件">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>如果你已经对Dart语言有了了解，并按官网配置了Flutter本地开发环境，然后就可以本地建一个Flutter项目，愉快地开始学习了。</p>
+</blockquote>
+<h3 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h3><p>我用 vs code 来开发，需要安装 <code>Dart</code>和<code>Flutter</code>两个扩展插件。 然后调出命令面板(<code>ctrl/command+shift+p</code>)，输入<code>flutter</code>，选择新建项目，输入项目名后，会自动初始化一个新项目。<br><img src="/images/2019-08-09/flutter_study_01.jpg"></p>
+<a id="more"></a>
+<h3 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h3><p>打开项目，能看到默认的结构目录：<img src="/images/2019-08-09/flutter_study_02.png"><br>主要包含：android、ios、lib、test 几个目录以及 pubspec.yaml 配置文件等。</p>
+<h4 id="android、ios目录"><a href="#android、ios目录" class="headerlink" title="android、ios目录"></a>android、ios目录</h4><p>项目编译后，Flutter代码会整合到android、ios目录中。这两个目录是结构完整的Android\iOS应用，可分别用Android Studio或Xcode打开进行编译、运行、开发、调试等。</p>
+<h4 id="lib目录"><a href="#lib目录" class="headerlink" title="lib目录"></a>lib目录</h4><p>这个目录下是我们flutter项目核心代码存放的地方，放置dart语言的类源码文件（main.dart）。lib下的源码会编译到Android和iOS平台进行渲染。</p>
+<blockquote>
+<p>默认有一个 main.dart 类，这个 main.dart 类名不可以修改,必须放置在 lib 根目录，它是我们项目的入口文件，入口类。</p>
+</blockquote>
+<h4 id="test目录"><a href="#test目录" class="headerlink" title="test目录"></a>test目录</h4><p>主要是放测试用例文件。</p>
+<h3 id="Flutter-配置文件"><a href="#Flutter-配置文件" class="headerlink" title="Flutter 配置文件"></a>Flutter 配置文件</h3><h4 id="pubspec-yaml"><a href="#pubspec-yaml" class="headerlink" title="pubspec.yaml"></a>pubspec.yaml</h4><p>这个是我们的 Flutter 项目的配置文件，我们在这里可以配置引用第三方插件库、添加 assets 图片资源、font 字体资源、音视频资源路径等等。整个文件是参照 YAML（YAML Ain’t a Markup Language）语法规范进行定义的格式，其实就是通过缩进来形成结构目录，非常简单，因此就不过多描述语法了。我们看下 pubspec.yaml 配置文件的内容和结构：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">//项目名称：要用英文，类似于Android中的包名，如果它修改了整个项目的引入的路径都要修改</span></span><br><span class="line"><span class="string">//所以一般确定了就不要修改</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">flutter_study</span></span><br><span class="line"><span class="string">//项目描述</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">A</span> <span class="string">new</span> <span class="string">Flutter</span> <span class="string">project.</span></span><br><span class="line"></span><br><span class="line"><span class="string">//版本号，这个会覆盖对应Android和IOS的应用版本号</span></span><br><span class="line"><span class="string">//+号前对应Android的versionCode，+号后对应Android的versionName</span></span><br><span class="line"><span class="string">//+号前对应IOS的CFBundleVersion，+号后对应IOS的CFBundleShortVersionString</span></span><br><span class="line"><span class="attr">version:</span> <span class="number">1.0</span><span class="number">.0</span><span class="string">+1</span></span><br><span class="line"></span><br><span class="line"><span class="string">//表示项目的编译环境要求为dart</span> <span class="string">sdk版本号在2.1.0和3.0.0之间</span></span><br><span class="line"><span class="attr">environment:</span></span><br><span class="line"><span class="attr">  sdk:</span> <span class="string">"&gt;=2.1.0 &lt;3.0.0"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">//项目的依赖插件库</span></span><br><span class="line"><span class="string">//Flutter插件库在这里查找引用：https://pub.dartlang.org/flutter</span></span><br><span class="line"><span class="attr">dependencies:</span></span><br><span class="line"><span class="attr">  flutter:</span></span><br><span class="line"><span class="attr">    sdk:</span> <span class="string">flutter</span></span><br><span class="line"><span class="string">//我们可以在这里引入插件库</span></span><br><span class="line"><span class="attr">  cupertino_icons:</span> <span class="string">^0.1.2</span></span><br><span class="line"><span class="attr">  flutter_webview_plugin:</span> <span class="string">^0.3.1</span></span><br><span class="line"></span><br><span class="line"><span class="attr">dev_dependencies:</span></span><br><span class="line"><span class="attr">  flutter_test:</span></span><br><span class="line"><span class="attr">    sdk:</span> <span class="string">flutter</span></span><br><span class="line"></span><br><span class="line"><span class="string">//flutter相关配置</span></span><br><span class="line"><span class="attr">flutter:</span></span><br><span class="line"><span class="string">//是否使用material图标，建议为true</span></span><br><span class="line"><span class="attr">  uses-material-design:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  <span class="string">//配置项目文件里的图片路径</span></span><br><span class="line">  <span class="string">//如果需要使用项目目录内附带的图片、音视频等资源，必须在这里配置定义</span></span><br><span class="line"><span class="attr">  assets:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">images/a_dot_burr.jpeg</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">images/a_dot_ham.jpeg</span></span><br><span class="line"></span><br><span class="line">  <span class="string">//字体文件资源相关配置</span></span><br><span class="line"><span class="attr">  fonts:</span></span><br><span class="line"><span class="attr">    - family:</span> <span class="string">Schyler</span></span><br><span class="line"><span class="attr">      fonts:</span></span><br><span class="line"><span class="attr">        - asset:</span> <span class="string">fonts/Schyler-Regular.ttf</span></span><br><span class="line"><span class="attr">        - asset:</span> <span class="string">fonts/Schyler-Italic.ttf</span></span><br><span class="line"><span class="attr">          style:</span> <span class="string">italic</span></span><br><span class="line"><span class="attr">    - family:</span> <span class="string">Trajan</span> <span class="string">Pro</span></span><br><span class="line"><span class="attr">      fonts:</span></span><br><span class="line"><span class="attr">        - asset:</span> <span class="string">fonts/TrajanPro.ttf</span></span><br><span class="line"><span class="attr">        - asset:</span> <span class="string">fonts/TrajanPro_Bold.ttf</span></span><br><span class="line"><span class="attr">          weight:</span> <span class="number">700</span></span><br><span class="line"></span><br><span class="line"><span class="string">//下面这几项一般只有在编写插件库发布到Dart</span> <span class="string">Pub时才写，一般不用写</span>  </span><br><span class="line"><span class="string">//作者</span></span><br><span class="line"><span class="attr">authors:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">Natalie</span> <span class="string">Weizenbaum</span> <span class="string">&lt;nweiz@google.com&gt;</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">Bob</span> <span class="string">Nystrom</span> <span class="string">&lt;rnystrom@google.com&gt;</span></span><br><span class="line"><span class="string">//主页</span></span><br><span class="line"><span class="attr">homepage:</span> <span class="attr">https://example-pet-store.com/newtify</span></span><br><span class="line"><span class="string">//文档地址</span></span><br><span class="line"><span class="attr">documentation:</span> <span class="attr">https://example-pet-store.com/newtify/docs</span></span><br><span class="line"><span class="string">//发布到</span></span><br><span class="line"><span class="attr">publish_to:</span> <span class="string">none</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="pubspec-lock"><a href="#pubspec-lock" class="headerlink" title="pubspec.lock"></a>pubspec.lock</h4><p>里面指明了我们的 pubspec.yaml 等依赖包和项目依赖的库的具体版本号，我们可以在这里查看我们项目引用的依赖的具体版本号等信息，如果某个配置文件丢失，可以通过这个文件重新下载和恢复依赖库。为自动生成文件。</p>
+<h4 id="packages"><a href="#packages" class="headerlink" title=".packages"></a>.packages</h4><p>里面放置了项目依赖的库的具体在本机电脑上的绝对路径。为自动生成文件，如果项目出错或者无法找到某个库，可以把这个文件删除，重新自动配置即可。</p>
+<h4 id="metadata"><a href="#metadata" class="headerlink" title=".metadata"></a>.metadata</h4><p>里面记录了我们项目的属性信息，如使用 Flutter SDK 哪个分支开发的，项目属性等，用于切换分支、升级 SDK 使用。自动生成，无需修改删除。</p>
+<p>以上介绍的是Flutter项目的结构。现在来看看lib里的代码结构。</p>
+<h3 id="Flutter-代码结构"><a href="#Flutter-代码结构" class="headerlink" title="Flutter 代码结构"></a>Flutter 代码结构</h3><p>默认 lib 下有一个 main.dart 类，这个 main.dart 类名字不可以修改，必须放置在 lib 根目录，它是我们项目的入口文件，入口类。实际开发中，可按功能来组织代码分类，如：assets、utils、widgets、ui。</p>
+<p>来看下默认 main.dart 文件的内容：<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//void main()为入口方法,main.dart文件独有</span></span><br><span class="line"><span class="keyword">void</span> main() =&gt; runApp(MyApp());</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="comment">//应用的最顶层入口</span></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="comment">//这里使用了MaterialApp脚手架，当然也可以使用WidgetApp，建议入口使用MaterialApp。</span></span><br><span class="line">    <span class="comment">//直接定义一个容器布局也可以</span></span><br><span class="line">    <span class="keyword">return</span> MaterialApp(</span><br><span class="line">      <span class="comment">//标题</span></span><br><span class="line">      title: <span class="string">'Flutter Demo'</span>,</span><br><span class="line">      theme: ThemeData(</span><br><span class="line">        <span class="comment">//可以自定义配置主题色调</span></span><br><span class="line">        primarySwatch: Colors.blue,</span><br><span class="line">      ),</span><br><span class="line">      <span class="comment">//页面</span></span><br><span class="line">      home: MyHomePage(title: <span class="string">'Flutter Demo Home Page'</span>),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用StatefulWidget有状态Widget</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyHomePage</span> <span class="keyword">extends</span> <span class="title">StatefulWidget</span> </span>&#123;</span><br><span class="line">  MyHomePage(&#123;Key key, <span class="keyword">this</span>.title&#125;) : <span class="keyword">super</span>(key: key);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">final</span> <span class="built_in">String</span> title;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//创建State状态</span></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  _MyHomePageState createState() =&gt; _MyHomePageState();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_MyHomePageState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">MyHomePage</span>&gt; </span>&#123;</span><br><span class="line">  <span class="built_in">int</span> _counter = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">void</span> _incrementCounter() &#123;</span><br><span class="line">    <span class="comment">//每次执行这个方法_counter加一，然后用setState方法进行UI刷新</span></span><br><span class="line">    setState(() &#123;</span><br><span class="line">      _counter++;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="comment">//Scaffold布局脚手架组件</span></span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      <span class="comment">//标题栏Widget组件</span></span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(widget.title),</span><br><span class="line">      ),</span><br><span class="line">      body: Center(</span><br><span class="line">        child: Column(</span><br><span class="line">          mainAxisAlignment: MainAxisAlignment.center,</span><br><span class="line">          children: &lt;Widget&gt;[</span><br><span class="line">            Text(</span><br><span class="line">              <span class="string">'You have pushed the button this many times:'</span>,</span><br><span class="line">            ),</span><br><span class="line">            Text(</span><br><span class="line">              <span class="string">'$_counter'</span>,</span><br><span class="line">              style: Theme.of(context).textTheme.display1,</span><br><span class="line">            ),</span><br><span class="line">          ],</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">      floatingActionButton: FloatingActionButton(</span><br><span class="line">        <span class="comment">//定义了一个Button，点击执行_incrementCounter()方法</span></span><br><span class="line">        onPressed: _incrementCounter,</span><br><span class="line">        tooltip: <span class="string">'Increment'</span>,</span><br><span class="line">        child: Icon(Icons.add),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>代码整体风格就是 React 组件化响应式风格，类似于 DOM 树结构，通过小的 Widget 来组成一个大的页面。和我一样看的有点懵？没关系，接下来看了基础的 widgets 后再看就很清晰了。 其实就是创建一个容器，放入不同的组件组合，简化如下：<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//void main()为入口方法,main.dart文件独有</span></span><br><span class="line"><span class="keyword">void</span> main() =&gt; runApp(MyMainApp());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 一个有状态Widget</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyMainApp</span> <span class="keyword">extends</span> <span class="title">StatefulWidget</span> </span>&#123;</span><br><span class="line">  <span class="comment">//这里可以简写为：State&lt;StatefulWidget&gt; createState() =&gt; _MyMainPageState();</span></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  State&lt;StatefulWidget&gt; createState() &#123;</span><br><span class="line">    <span class="keyword">return</span> _MyMainPageState();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_MyMainPageState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">MyMainApp</span>&gt; </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="keyword">void</span> initState() &#123;</span><br><span class="line">    <span class="keyword">super</span>.initState();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 布局</span></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> MaterialApp(</span><br><span class="line">      <span class="comment">//页面</span></span><br><span class="line">      home: Scaffold(</span><br><span class="line">        appBar: AppBar(</span><br><span class="line">          title: Text(<span class="string">'标题'</span>),</span><br><span class="line">        ),</span><br><span class="line">        body: Center(</span><br><span class="line">          child: Text(<span class="string">"我是内容"</span>),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<img src="/images/2019-08-09/flutter_study_03.png">
+<hr>
+<h3 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h3><p><font color="red"><strong>上面的代码可以看出，<code>StatefulWidget</code> 和 <code>State</code> 是独立的对象`, 这是为什么？</strong></font><br><img src="/images/2019-08-09/flutter_study_04.png"></p>
+<p>在 Flutter 中，这两种类型的对象具有<strong>不同的生命周期。Widget 是临时对象，用于构造应用当前状态的展示。而 State 对象在调用 build() 之间是持久的，以此来存储信息</strong>。</p>
+<p>在复杂的应用中，widget 层次不同的部分可能负责不同的关注点；例如，一个 widget 可能呈现复杂的用户界面，来收集像日期或位置这样特定的信息，而另一个 widget 可能使用该信息来改变整体的展现。（拆分的更细化）</p>
+<p>widget 通过回调得到状态改变的通知，同时当前状态通知给其他 widget 用于显示。重定向这一流程的共同父级是 State。</p>
+<hr>
+<p><a href="https://github.com/SeptemberMaples/study-section/tree/flutter_study/flutter_study/lib/flutter_01" target="_blank" rel="noopener"><font color="blue">相关代码</font></a></p>
+<hr>
+<p>本文是【Flutter—从入门到实践(by Ray)】的学习笔记</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/flutter/" rel="tag"># flutter</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/29/react-vs-vue/" rel="next" title="React VS Vue —— 你需要知道的前端两大“框架”的异同">
+                <i class="fa fa-chevron-left"></i> React VS Vue —— 你需要知道的前端两大“框架”的异同
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/12/flutter-widget-introduce/" rel="prev" title="Flutter学习-02：widget介绍">
+                Flutter学习-02：widget介绍 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div id="vcomments"></div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="九月枫林" />
+            
+              <p class="site-author-name" itemprop="name">九月枫林</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/SeptemberMaples" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:jiuyuefenglin@gmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/jiuyuefenglin" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.zhihu.com/people/yangyong222" target="_blank" title="知乎">
+                    
+                      <i class="fa fa-fw fa-globe"></i>知乎</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#新建项目"><span class="nav-number">1.</span> <span class="nav-text">新建项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目结构"><span class="nav-number">2.</span> <span class="nav-text">项目结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#android、ios目录"><span class="nav-number">2.1.</span> <span class="nav-text">android、ios目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lib目录"><span class="nav-number">2.2.</span> <span class="nav-text">lib目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#test目录"><span class="nav-number">2.3.</span> <span class="nav-text">test目录</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flutter-配置文件"><span class="nav-number">3.</span> <span class="nav-text">Flutter 配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#pubspec-yaml"><span class="nav-number">3.1.</span> <span class="nav-text">pubspec.yaml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pubspec-lock"><span class="nav-number">3.2.</span> <span class="nav-text">pubspec.lock</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#packages"><span class="nav-number">3.3.</span> <span class="nav-text">.packages</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#metadata"><span class="nav-number">3.4.</span> <span class="nav-text">.metadata</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flutter-代码结构"><span class="nav-number">4.</span> <span class="nav-text">Flutter 代码结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#补充："><span class="nav-number">5.</span> <span class="nav-text">补充：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九月枫林</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine@1.1.4/dist/Valine.min.js"></script>
+  <script type="text/javascript">
+    new Valine({
+        av: AV,
+        el: '#vcomments' ,
+        verify: true,
+        notify: false,
+        app_id: 'fyGrIsuAaAKmLUl8jRfcPcda-gzGzoHsz',
+        app_key: 'tAseGFsYxXWyNK8EIOLHxmlz',
+        placeholder: '说点什么吧~'
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("fyGrIsuAaAKmLUl8jRfcPcda-gzGzoHsz", "tAseGFsYxXWyNK8EIOLHxmlz");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.3"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.3"></script>
+
+
+  
+
+</body>
+</html>
