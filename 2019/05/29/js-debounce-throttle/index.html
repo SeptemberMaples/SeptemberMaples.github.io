@@ -77,18 +77,18 @@
 
 
 
-<meta name="description" content="节流与防抖都是可以防止一个函数被无意义的高频率调用。对于实际的使用场景常有不清梦的地方。特作个记录。">
+<meta name="description" content="我们知道，鼠标滚动（scroll）、调整窗口大小（resize）、敲击键盘（keyup）这类事件在触发时往往频率极高。这时候事件对应的回调函数也会在极短时间内反复执行。想象一下，如果这些回调函数内的逻辑涉及复杂的计算，或者对 DOM 操作非常频繁，从而造成大量布局操作、绘制操作，影响性能。 如上的情况，我们会使用的优化手段往往是使用节流（throttle）或者防抖（debounce）来进行处理。">
 <meta name="keywords" content="前端,js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="理解节流与防抖">
 <meta property="og:url" content="http://yangyong.xyz/2019/05/29/js-debounce-throttle/index.html">
 <meta property="og:site_name" content="九月枫林">
-<meta property="og:description" content="节流与防抖都是可以防止一个函数被无意义的高频率调用。对于实际的使用场景常有不清梦的地方。特作个记录。">
+<meta property="og:description" content="我们知道，鼠标滚动（scroll）、调整窗口大小（resize）、敲击键盘（keyup）这类事件在触发时往往频率极高。这时候事件对应的回调函数也会在极短时间内反复执行。想象一下，如果这些回调函数内的逻辑涉及复杂的计算，或者对 DOM 操作非常频繁，从而造成大量布局操作、绘制操作，影响性能。 如上的情况，我们会使用的优化手段往往是使用节流（throttle）或者防抖（debounce）来进行处理。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-15T15:18:59.606Z">
+<meta property="og:updated_time" content="2019-09-03T16:05:26.896Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="理解节流与防抖">
-<meta name="twitter:description" content="节流与防抖都是可以防止一个函数被无意义的高频率调用。对于实际的使用场景常有不清梦的地方。特作个记录。">
+<meta name="twitter:description" content="我们知道，鼠标滚动（scroll）、调整窗口大小（resize）、敲击键盘（keyup）这类事件在触发时往往频率极高。这时候事件对应的回调函数也会在极短时间内反复执行。想象一下，如果这些回调函数内的逻辑涉及复杂的计算，或者对 DOM 操作非常频繁，从而造成大量布局操作、绘制操作，影响性能。 如上的情况，我们会使用的优化手段往往是使用节流（throttle）或者防抖（debounce）来进行处理。">
 
 
 
@@ -351,10 +351,15 @@
       
 
       
-        <blockquote>
-<p>节流与防抖都是可以防止一个函数被无意义的高频率调用。对于实际的使用场景常有不清梦的地方。特作个记录。</p>
-</blockquote>
+        <p>我们知道，鼠标滚动（scroll）、调整窗口大小（resize）、敲击键盘（keyup）这类事件在触发时往往频率极高。这时候事件对应的回调函数也会在极短时间内反复执行。想象一下，如果这些回调函数内的逻辑涉及复杂的计算，或者对 DOM 操作非常频繁，从而造成大量布局操作、绘制操作，影响性能。</p>
+<p>如上的情况，我们会使用的优化手段往往是使用节流（throttle）或者防抖（debounce）来进行处理。</p>
+<p><strong>节流和防抖总是一起出现，那么它们有什么不同呢？</strong></p>
 <a id="more"></a>
+<p>首先要知道它们解决的问题相同，方向类似：<strong>两者并不会减少事件的触发，而是减少事件触发时回调函数的执行次数</strong>。为了达成这个目的，节流和防抖采用的手段有所差别。</p>
+<ul>
+<li>节流：顾名思义，就是将短时间的函数调用以一个固定的频率间隔执行，这就如同水龙头开关限制出水口流量。</li>
+<li>防抖：抖动现象本质就是指短时间内高频次触发。因此，我们可以把短时间内的多个连续调用合并成一次，也就是只触发一次回调函数。</li>
+</ul>
 <h2 id="节流-throttle"><a href="#节流-throttle" class="headerlink" title="节流(throttle)"></a>节流(throttle)</h2><p>函数节流指的是某个函数在一定时间间隔内（例如 3 秒）只执行一次，在这 3 秒内 <strong>无视后来产生的函数调用请求</strong>。可以理解为是缩减执行频率</p>
 <h3 id="原理及实现"><a href="#原理及实现" class="headerlink" title="原理及实现"></a>原理及实现</h3><p>函数节流非常适用于函数被频繁调用的场景，例如：window.onresize() 事件、mousemove 事件、上传进度等情况。</p>
 <p>可以通过两种方案实现节流：</p>
@@ -415,8 +420,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/29/js-awesome/" rel="next" title="FE-awesome">
-                <i class="fa fa-chevron-left"></i> FE-awesome
+              <a href="/2019/04/23/understand-js-closure-and-an-interview-question/" rel="next" title="理解JS的闭包及关于闭包的经典面试题">
+                <i class="fa fa-chevron-left"></i> 理解JS的闭包及关于闭包的经典面试题
               </a>
             
           </div>
@@ -425,8 +430,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/07/29/react-vs-vue/" rel="prev" title="React VS Vue —— 你需要知道的前端两大“框架”的异同">
-                React VS Vue —— 你需要知道的前端两大“框架”的异同 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/05/29/js-awesome/" rel="prev" title="FE-awesome">
+                FE-awesome <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
