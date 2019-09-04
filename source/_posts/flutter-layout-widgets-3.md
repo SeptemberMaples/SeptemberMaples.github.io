@@ -267,7 +267,7 @@ class ListViewSamplesState extends State<ListViewSamples> {
 
  {% img /images/2019-09-03/20190903171814.png %}
  
-
+---
 
  ### GridView Widget
 
@@ -465,6 +465,7 @@ GridView({
 ```
  {% img /images/2019-09-03/20190903171815.png %}
 
+---
  
  ### CustomScrollView Widget
 
@@ -475,3 +476,144 @@ GridView({
 CustomScrollView 是一个*无状态*组件，继承自 ScrollView，也扩展了 ScrollView 的功能。
 
 CustomScrollView 最大的特点就是内部的组装的滚动组件都是 Sliver 特性的，也就是必须是 Sliver 可滚动块的 Widget 才可以，如：CustomScrollView 内部可以放置 SliverList、SliverFixedExtentList、SliverGrid、SliverPadding、SliverAppBar、SliverToBoxAdapter 等组件。
+
+**CustomScrollView 的构造方法：**
+```dart
+const CustomScrollView({
+  Key key,
+  Axis scrollDirection: Axis.vertical,
+  bool reverse: false,
+  ScrollController controller,
+  bool primary,
+  ScrollPhysics physics,
+  bool shrinkWrap: false,
+  Key center,
+  double anchor: 0.0,
+  double cacheExtent,
+  List<Widget> slivers: const [],
+  int semanticChildCount,
+  DragStartBehavior dragStartBehavior: DragStartBehavior.start
+})
+```
+
+**CustomScrollView widget 实例**
+```dart
+ @override
+Widget build(BuildContext context) {
+  return Material(
+    child: CustomScrollView(
+      // slivers里面放置sliver滚动块组件
+      slivers: <Widget>[
+        // 放置一个顶部的标题栏
+        SliverAppBar(
+          // title: Text('data'),
+          // 是否固定在顶部
+          pinned: true,
+          // 展开高度
+          expandedHeight: 250.0,
+          // 可展开区域，通常是一个FlexibleSpaceBar
+          flexibleSpace: FlexibleSpaceBar(
+            title: const Text('CustomScrollView'),
+            background: Image.asset('lib/images/assets_image.jpg',fit: BoxFit.cover,),
+          ),
+        ),
+
+        // 放置一个SliverGrid Widget
+        SliverGrid(
+          // 设置Grid属性：
+          // SliverGridDelegateWithMaxCrossAxisExtent：
+          // 按照设置最大扩展宽度计算item个数
+          // SliverGridDelegateWithFixedCrossAxisCount:
+          // 可以固定设置每行item个数
+          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+            // item最大宽度
+            maxCrossAxisExtent: 200.0,
+            // 主轴item间隔
+            mainAxisSpacing: 10.0,
+            // 交叉轴item间隔
+            crossAxisSpacing: 10.0,
+            // item宽高比
+            childAspectRatio: 4.0,
+          ),
+          // 设置item的布局及属性
+          // SliverChildListDelegate：适用于有固定数量的item的List
+          // SliverChildBuilderDelegate:适用于不固定数量的item的List
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int index) {
+              return Container(
+                alignment: Alignment.center,
+                color: Colors.teal[100 * (index % 9)],
+                child: Text('grid item $index'),
+              );
+            },
+            // 20个item数量
+            childCount: 20,
+          ),
+        ),
+        // 指定item高度的List
+        SliverFixedExtentList(
+          // item固定高度
+          itemExtent: 50.0,
+          // 设置item布局和属性
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int index) {
+              return Container(
+                alignment: Alignment.center,
+                color: Colors.lightBlue[100 * (index % 9)],
+                child: Text('list item $index'),
+              );
+            },
+            childCount: 20,
+          ),
+        )
+      ],
+    ),
+  );
+}
+```
+
+{% img /images/2019-09-03/20190904001.gif %}
+
+---
+
+### 其他
+
+ScrollView 这个 Widget 并不直接单独使用，一般是使用它的扩展类，如 CustomScrollView、ListView、GridView 等等。
+
+**滚动条样式设置**。从上面的效果图看出，一般的滚动类组件不显示滚动条，如果想显示滚动条，需要用 `Scrollbar` 进行包裹。
+
+```dart
+///Scrollbar
+Widget scroll1() {
+  return Scrollbar(
+    child: ListView.separated(
+      itemCount: 20,
+      separatorBuilder: (BuildContext context, int index) {
+        return Container(height: 1, color: Colors.black87);
+      },
+      itemBuilder: (BuildContext context, int index) {
+        return ListTile(
+          isThreeLine: true,
+          dense: true,
+          leading:
+              ExcludeSemantics(child: CircleAvatar(child: Text('leading'))),
+          title: Text('This item represents .'),
+          subtitle: Text('subtitle'),
+          trailing: Icon(Icons.info, color: Theme.of(context).disabledColor),
+        );
+      },
+    ),
+  );
+}
+```
+
+还有单子元素的 ScrollView（`SingleChildScrollView`），类似于 Android 里的 ScrollView，内部只能包裹一个子控件。
+
+---
+
+[相关代码](https://github.com/SeptemberMaples/study-section/tree/flutter_study/flutter_study/lib/flutter_08)
+
+ ---
+ 参考：
+ - [flutter官网](https://api.flutter.dev/flutter/widgets/CustomScrollView-class.html)
+ - 【Flutter—从入门到实践(by Ray)】学习笔记
