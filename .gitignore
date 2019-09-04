@@ -6,3 +6,4 @@ db.json
 # README.md
 
 source/_drafts/
+*.log
